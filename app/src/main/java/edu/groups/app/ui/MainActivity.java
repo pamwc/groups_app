@@ -1,12 +1,9 @@
-package edu.groups.app;
+package edu.groups.app.ui;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.Button;
+import android.support.v7.app.AppCompatActivity;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.StreamSupport;
+import edu.groups.app.R;
 
 public class MainActivity extends AppCompatActivity {
 
