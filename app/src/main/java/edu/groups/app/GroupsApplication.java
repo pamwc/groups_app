@@ -2,7 +2,7 @@ package edu.groups.app;
 
 import dagger.android.AndroidInjector;
 import dagger.android.DaggerApplication;
-import edu.groups.app.dependency.DaggerAppComponent;
+import edu.groups.app.di.DaggerAppComponent;
 
 /**
  * Created by Kamil on 27/10/2017.

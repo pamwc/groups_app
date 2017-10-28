@@ -1,4 +1,4 @@
-package edu.groups.app.dependency;
+package edu.groups.app.di;
 
 import android.app.Application;
 import android.content.Context;
