@@ -1,4 +1,4 @@
-package edu.groups.app;
+package edu.groups.app.firebase;
 
 import android.app.NotificationManager;
 import android.content.Context;
@@ -9,6 +9,8 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 import java.util.Map;
+
+import edu.groups.app.R;
 
 import static android.content.ContentValues.TAG;
 

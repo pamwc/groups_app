@@ -3,6 +3,8 @@ package edu.groups.app.ui.main;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.google.firebase.messaging.FirebaseMessaging;
+
 import javax.inject.Inject;
 
 import dagger.android.support.DaggerAppCompatActivity;
@@ -19,6 +21,7 @@ public class MainActivity extends DaggerAppCompatActivity implements MainContrac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        FirebaseMessaging.getInstance().subscribeToTopic("foo-bar");
         textView = (TextView) findViewById(R.id.text);
     }
 

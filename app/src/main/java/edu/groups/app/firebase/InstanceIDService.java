@@ -1,4 +1,4 @@
-package edu.groups.app;
+package edu.groups.app.firebase;
 
 import android.app.Service;
 import android.util.Log;
