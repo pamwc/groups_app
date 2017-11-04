@@ -8,6 +8,7 @@ import dagger.android.DaggerApplication;
 import dagger.android.support.AndroidSupportInjectionModule;
 import edu.groups.app.di.module.ActivityBuilderModule;
 import edu.groups.app.di.module.AppModule;
+import edu.groups.app.di.module.NetModule;
 import edu.groups.app.di.module.RepositoryModule;
 
 /**
@@ -17,6 +18,7 @@ import edu.groups.app.di.module.RepositoryModule;
 @Singleton
 @Component(modules = {
         AppModule.class,
+        NetModule.class,
         RepositoryModule.class,
         ActivityBuilderModule.class,
         AndroidSupportInjectionModule.class
