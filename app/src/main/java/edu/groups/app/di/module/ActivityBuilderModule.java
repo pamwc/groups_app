@@ -1,7 +1,8 @@
-package edu.groups.app.di;
+package edu.groups.app.di.module;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
+import edu.groups.app.di.ActivityScope;
 import edu.groups.app.ui.main.MainActivity;
 import edu.groups.app.ui.main.MainActivityModule;
 

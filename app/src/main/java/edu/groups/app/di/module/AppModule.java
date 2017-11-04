@@ -1,4 +1,4 @@
-package edu.groups.app.di;
+package edu.groups.app.di.module;
 
 import android.app.Application;
 import android.content.Context;
