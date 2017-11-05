@@ -6,8 +6,10 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import edu.groups.app.service.ApiService;
+import edu.groups.app.api.ApiService;
+import edu.groups.app.api.BasicAuthInterceptor;
 import okhttp3.Cache;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -19,8 +21,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public abstract class NetModule {
 
-    private static final String BASE_URL = "http://locahost:8080/";
+    private static final String BASE_URL = "http://192.168.1.102:8080/";
     private static final int MB = 1024 * 1024;
+
+    @Provides
+    @Singleton
+    static Interceptor provideInterceptor() {
+        return new BasicAuthInterceptor();
+    }
 
     @Provides
     @Singleton
@@ -30,8 +38,9 @@ public abstract class NetModule {
 
     @Provides
     @Singleton
-    static OkHttpClient provideOkHttpClient(Cache cache) {
+    static OkHttpClient provideOkHttpClient(Interceptor interceptor, Cache cache) {
         return new OkHttpClient.Builder()
+                .addInterceptor(interceptor)
                 .cache(cache)
                 .build();
     }

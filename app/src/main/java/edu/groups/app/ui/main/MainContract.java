@@ -9,10 +9,11 @@ import edu.groups.app.ui.MvpContract;
 public interface MainContract {
 
     interface View extends MvpContract.View {
-        void showSomething(String something);
+        void showMessage(String message);
     }
 
     interface Presenter extends MvpContract.Presenter {
-        void doSomething();
+        void login(String username, String password);
+        void logout();
     }
 }

@@ -10,5 +10,7 @@ public interface MvpContract {
     }
 
     interface Presenter {
+        void onResume();
+        void onDestroy();
     }
 }
