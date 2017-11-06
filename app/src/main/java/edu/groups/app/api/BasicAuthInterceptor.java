@@ -10,6 +10,7 @@ import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
 
+
 /**
  * Created by Kamil on 05/11/2017.
  */
@@ -32,13 +33,13 @@ public class BasicAuthInterceptor implements Interceptor {
     }
 
     private Optional<UserCredentials> getUserCredentials() {
-        try(Realm realm = Realm.getDefaultInstance()) {
+        try (Realm realm = Realm.getDefaultInstance()) {
             UserCredentials userCredentials = realm.where(UserCredentials.class)
                     .equalTo("id", UserCredentials.ID)
                     .findFirst();
 
-            return userCredentials == null ? Optional.empty()
-                    : Optional.ofNullable(realm.copyFromRealm(userCredentials));
+            return Optional.ofNullable(userCredentials)
+                    .map(realm::copyFromRealm);
         }
     }
 }
