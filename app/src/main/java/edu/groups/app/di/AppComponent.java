@@ -6,6 +6,10 @@ import dagger.Component;
 import dagger.android.AndroidInjector;
 import dagger.android.DaggerApplication;
 import dagger.android.support.AndroidSupportInjectionModule;
+import edu.groups.app.di.module.ActivityBuilderModule;
+import edu.groups.app.di.module.AppModule;
+import edu.groups.app.di.module.NetModule;
+import edu.groups.app.di.module.RepositoryModule;
 
 /**
  * Created by Kamil on 27/10/2017.
@@ -14,6 +18,8 @@ import dagger.android.support.AndroidSupportInjectionModule;
 @Singleton
 @Component(modules = {
         AppModule.class,
+        NetModule.class,
+        RepositoryModule.class,
         ActivityBuilderModule.class,
         AndroidSupportInjectionModule.class
 })
