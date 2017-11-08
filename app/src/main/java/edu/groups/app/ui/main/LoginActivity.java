@@ -11,20 +11,20 @@ import javax.inject.Inject;
 import dagger.android.support.DaggerAppCompatActivity;
 import edu.groups.app.R;
 
-public class MainActivity extends DaggerAppCompatActivity implements MainContract.View {
+public class LoginActivity extends DaggerAppCompatActivity implements LoginContract.View {
 
     private static final String USERNAME = "jan";
     private static final String PASSWORD = "test";
 
     @Inject
-    MainContract.Presenter presenter;
+    LoginContract.Presenter presenter;
 
     TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
         FirebaseMessaging.getInstance().subscribeToTopic("foo-bar");
         textView = (TextView) findViewById(R.id.text);
 

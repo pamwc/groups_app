@@ -15,14 +15,14 @@ import retrofit2.Response;
  * Created by Kamil on 28/10/2017.
  */
 
-public class MainPresenter extends BasePresenter<MainContract.View> implements MainContract.Presenter {
+public class LoginPresenter extends BasePresenter<LoginContract.View> implements LoginContract.Presenter {
 
-    private static final String TAG = MainPresenter.class.getName();
+    private static final String TAG = LoginPresenter.class.getName();
 
     private final AuthService authService;
     private final ApiService apiService;
 
-    public MainPresenter(MainContract.View view, AuthService authService, ApiService apiService) {
+    public LoginPresenter(LoginContract.View view, AuthService authService, ApiService apiService) {
         super(view);
         this.authService = authService;
         this.apiService = apiService;
