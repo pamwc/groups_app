@@ -1,4 +1,4 @@
-package edu.groups.app.ui.main;
+package edu.groups.app.ui.login;
 
 import edu.groups.app.ui.MvpContract;
 

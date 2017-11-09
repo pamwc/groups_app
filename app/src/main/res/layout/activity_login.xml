@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context="edu.groups.app.ui.main.LoginActivity">
+    tools:context="edu.groups.app.ui.login.LoginActivity">
 
     <TextView
         android:id="@+id/text"
