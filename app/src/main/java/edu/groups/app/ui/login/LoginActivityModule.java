@@ -4,6 +4,7 @@ import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
 import edu.groups.app.api.ApiService;
+import edu.groups.app.di.ActivityScope;
 import edu.groups.app.service.AuthService;
 
 /**
@@ -14,11 +15,13 @@ import edu.groups.app.service.AuthService;
 public abstract class LoginActivityModule {
 
     @Binds
+    @ActivityScope
     abstract LoginContract.View bindLoginView(LoginActivity loginActivity);
 
     @Provides
+    @ActivityScope
     static LoginContract.Presenter provideLoginPresenter(LoginContract.View view, AuthService authService,
-                                                        ApiService apiService) {
+                                                         ApiService apiService) {
         return new LoginPresenter(view, authService, apiService);
     }
 }
