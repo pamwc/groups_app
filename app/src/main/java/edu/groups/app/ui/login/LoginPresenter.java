@@ -15,7 +15,8 @@ import retrofit2.Response;
  * Created by Kamil on 28/10/2017.
  */
 
-public class LoginPresenter extends BasePresenter<LoginContract.View> implements LoginContract.Presenter {
+public class LoginPresenter extends BasePresenter<LoginContract.View>
+        implements LoginContract.Presenter {
 
     private static final String TAG = LoginPresenter.class.getName();
 

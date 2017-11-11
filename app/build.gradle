@@ -39,21 +39,37 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:design:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+
+    // StreamSupport, backport of the Java 8 features
     compile 'net.sourceforge.streamsupport:streamsupport:1.5.6'
     compile 'net.sourceforge.streamsupport:streamsupport-cfuture:1.5.6'
     compile 'net.sourceforge.streamsupport:streamsupport-atomic:1.5.6'
     compile 'net.sourceforge.streamsupport:streamsupport-flow:1.5.6'
     compile 'net.sourceforge.streamsupport:streamsupport-literal:1.5.6'
-    compile 'com.google.firebase:firebase-messaging:10.0.1'
+
+    // Retrofit, REST client
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
+
+    // Butter Knife, view binding library
+    compile 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+
+    // Icepick, Android Instance State made easy
     compile 'frankiesardo:icepick:3.2.0'
     provided 'frankiesardo:icepick-processor:3.2.0'
+
+    // Dagger2, dependency injection
     compile "com.google.dagger:dagger:2.11"
     compile "com.google.dagger:dagger-android:2.11"
     compile "com.google.dagger:dagger-android-support:2.11"
     annotationProcessor "com.google.dagger:dagger-compiler:2.11"
     annotationProcessor "com.google.dagger:dagger-android-processor:2.11"
+
+    // Firebase cloud messaging
+    compile 'com.google.firebase:firebase-messaging:10.0.1'
+
+    // Testing
     testCompile 'junit:junit:4.12'
     androidTestCompile 'com.google.code.findbugs:jsr305:3.0.2'
 }

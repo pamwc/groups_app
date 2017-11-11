@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Groups</string>
 
+    <!-- Bottom navigation bar -->
     <string name="menu_groups">Groups</string>
     <string name="menu_notifications">Notifications</string>
+    <string name="menu_my_account">My account</string>
 </resources>

@@ -11,8 +11,7 @@ import dagger.android.DaggerFragment;
 public abstract class BaseViewFragment<T extends MvpContract.Presenter> extends DaggerFragment
         implements MvpContract.View {
 
-    @Inject
-    protected T presenter;
+    @Inject protected T presenter;
 
     @Override
     public void onResume() {

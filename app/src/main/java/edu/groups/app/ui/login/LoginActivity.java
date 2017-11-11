@@ -9,6 +9,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
 import dagger.android.support.DaggerAppCompatActivity;
 import edu.groups.app.R;
 import edu.groups.app.ui.main.MainActivity;
@@ -18,17 +19,15 @@ public class LoginActivity extends DaggerAppCompatActivity implements LoginContr
     private static final String USERNAME = "jan";
     private static final String PASSWORD = "test";
 
-    @Inject
-    LoginContract.Presenter presenter;
+    @Inject LoginContract.Presenter presenter;
 
-    TextView textView;
+    @BindView(R.id.text) TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         FirebaseMessaging.getInstance().subscribeToTopic("foo-bar");
-        textView = (TextView) findViewById(R.id.text);
 
         final Button loginButton = (Button) findViewById(R.id.login);
         loginButton.setOnClickListener(view -> presenter.login(USERNAME, PASSWORD));
