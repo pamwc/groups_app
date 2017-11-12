@@ -10,6 +10,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import dagger.android.support.DaggerAppCompatActivity;
 import edu.groups.app.R;
 import edu.groups.app.ui.main.MainActivity;
@@ -27,6 +28,8 @@ public class LoginActivity extends DaggerAppCompatActivity implements LoginContr
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        ButterKnife.bind(this);
+
         FirebaseMessaging.getInstance().subscribeToTopic("foo-bar");
 
         final Button loginButton = (Button) findViewById(R.id.login);
