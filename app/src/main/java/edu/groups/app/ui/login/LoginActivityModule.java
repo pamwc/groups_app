@@ -4,8 +4,9 @@ import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
 import edu.groups.app.api.ApiService;
+import edu.groups.app.api.BasicAuthInterceptor;
 import edu.groups.app.di.ActivityScope;
-import edu.groups.app.service.AuthService;
+import edu.groups.app.service.UserService;
 
 /**
  * Created by Kamil on 28/10/2017.
@@ -20,8 +21,8 @@ public abstract class LoginActivityModule {
 
     @Provides
     @ActivityScope
-    static LoginContract.Presenter provideLoginPresenter(LoginContract.View view, AuthService authService,
-                                                         ApiService apiService) {
-        return new LoginPresenter(view, authService, apiService);
+    static LoginContract.Presenter provideLoginPresenter(LoginContract.View view, BasicAuthInterceptor interceptor,
+                                                         UserService userService, ApiService apiService) {
+        return new LoginPresenter(view, interceptor, userService, apiService);
     }
 }

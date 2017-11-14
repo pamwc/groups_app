@@ -3,9 +3,10 @@ package edu.groups.app.ui.login;
 import android.util.Log;
 
 import edu.groups.app.api.ApiService;
+import edu.groups.app.api.BasicAuthInterceptor;
+import edu.groups.app.model.BasicCredentials;
 import edu.groups.app.model.User;
-import edu.groups.app.model.UserCredentials;
-import edu.groups.app.service.AuthService;
+import edu.groups.app.service.UserService;
 import edu.groups.app.ui.BasePresenter;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -20,46 +21,55 @@ public class LoginPresenter extends BasePresenter<LoginContract.View>
 
     private static final String TAG = LoginPresenter.class.getName();
 
-    private final AuthService authService;
+    private final BasicAuthInterceptor interceptor;
+    private final UserService userService;
     private final ApiService apiService;
 
-    public LoginPresenter(LoginContract.View view, AuthService authService, ApiService apiService) {
+    public LoginPresenter(LoginContract.View view, BasicAuthInterceptor interceptor,
+                          UserService userService, ApiService apiService) {
         super(view);
-        this.authService = authService;
+        this.interceptor = interceptor;
+        this.userService = userService;
         this.apiService = apiService;
     }
 
     @Override
     public void onResume() {
-        loginRequest();
+        userService.get().ifPresent(user ->
+                loginRequest(user.getCredentials())
+        );
     }
 
     @Override
     public void onDestroy() {
-        authService.dispatch();
+        userService.dispatch();
     }
 
     @Override
-    public void login(final String username, final String password) {
-        authService.storeCredentialsAsync(
-                new UserCredentials(username, password), this::loginRequest
-        );
+    public void login(BasicCredentials credentials) {
+        loginRequest(credentials);
     }
 
     @Override
     public void logout() {
-        authService.clearCredentialsAsync(
-                () -> view.showMessage("Logout successful")
+        userService.removeAsync(() ->
+                view.showMessage("Logout!")
         );
     }
 
-    private void loginRequest() {
+    private void loginRequest(BasicCredentials credentials) {
+        interceptor.storeCredentials(credentials);
         apiService.aboutMe().enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 Log.i(TAG, "Response code: " + response.code());
                 if (response.isSuccessful()) {
-                    view.showMessage("Welcome, " + response.body().getUsername());
+                    User user = response.body();
+                    user.setCredentials(credentials);
+                    Log.e(TAG, user.getCredentials().getPassword());
+                    userService.saveAsync(user, () ->
+                            view.showMessage("Welcome, " + response.body().getFirstName())
+                    );
                 }
             }
 

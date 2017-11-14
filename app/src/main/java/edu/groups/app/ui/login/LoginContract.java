@@ -1,5 +1,6 @@
 package edu.groups.app.ui.login;
 
+import edu.groups.app.model.BasicCredentials;
 import edu.groups.app.ui.MvpContract;
 
 /**
@@ -13,7 +14,7 @@ public interface LoginContract {
     }
 
     interface Presenter extends MvpContract.Presenter {
-        void login(String username, String password);
+        void login(BasicCredentials credentials);
         void logout();
     }
 }

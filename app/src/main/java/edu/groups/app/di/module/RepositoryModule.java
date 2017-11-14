@@ -2,8 +2,8 @@ package edu.groups.app.di.module;
 
 import dagger.Module;
 import dagger.Provides;
-import edu.groups.app.service.AuthService;
-import edu.groups.app.service.AuthServiceImpl;
+import edu.groups.app.service.UserService;
+import edu.groups.app.service.UserServiceImpl;
 import io.realm.Realm;
 
 /**
@@ -19,7 +19,7 @@ public abstract class RepositoryModule {
     }
 
     @Provides
-    static AuthService provideAccountService(Realm realm) {
-        return new AuthServiceImpl(realm);
+    static UserService provideUserService(Realm realm) {
+        return new UserServiceImpl(realm);
     }
 }

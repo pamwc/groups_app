@@ -1,6 +1,5 @@
 package edu.groups.app.ui.login;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
@@ -13,7 +12,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import dagger.android.support.DaggerAppCompatActivity;
 import edu.groups.app.R;
-import edu.groups.app.ui.main.MainActivity;
+import edu.groups.app.model.BasicCredentials;
 
 public class LoginActivity extends DaggerAppCompatActivity implements LoginContract.View {
 
@@ -33,7 +32,9 @@ public class LoginActivity extends DaggerAppCompatActivity implements LoginContr
         FirebaseMessaging.getInstance().subscribeToTopic("foo-bar");
 
         final Button loginButton = (Button) findViewById(R.id.login);
-        loginButton.setOnClickListener(view -> presenter.login(USERNAME, PASSWORD));
+        loginButton.setOnClickListener(view -> presenter.login(
+                new BasicCredentials(USERNAME, PASSWORD)
+        ));
 
         final Button logoutButton = (Button) findViewById(R.id.logout);
         logoutButton.setOnClickListener(view -> presenter.logout());
@@ -53,7 +54,8 @@ public class LoginActivity extends DaggerAppCompatActivity implements LoginContr
 
     @Override
     public void showMessage(String something) {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        textView.setText(something);
+//        Intent intent = new Intent(this, MainActivity.class);
+//        startActivity(intent);
     }
 }
