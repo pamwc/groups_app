@@ -21,9 +21,4 @@ public class GroupListPresenter extends InnerPresenter<GroupListContract.View>
     public void onResume() {
         view.showMessage(getCurrentUser().getFirstName());
     }
-
-    @Override
-    public void onDestroy() {
-
-    }
 }

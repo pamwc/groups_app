@@ -11,4 +11,14 @@ public abstract class BasePresenter<T extends MvpContract.View> implements MvpCo
     protected BasePresenter(T view) {
         this.view = view;
     }
+
+    @Override
+    public void onResume() {
+
+    }
+
+    @Override
+    public void onDestroy() {
+
+    }
 }
