@@ -1,20 +1,25 @@
 package edu.groups.app.ui.main.group;
 
-import edu.groups.app.ui.BasePresenter;
+import javax.inject.Inject;
+
+import edu.groups.app.service.UserService;
+import edu.groups.app.ui.InnerPresenter;
 
 /**
  * Created by Kamil on 10/11/2017.
  */
 
-public class GroupListPresenter extends BasePresenter<GroupListContract.View>
+public class GroupListPresenter extends InnerPresenter<GroupListContract.View>
         implements GroupListContract.Presenter {
 
-    public GroupListPresenter(GroupListContract.View view) {
-        super(view);
+    @Inject
+    GroupListPresenter(GroupListContract.View view, UserService userService) {
+        super(view, userService);
     }
 
     @Override
     public void onResume() {
+        view.showMessage(getCurrentUser().getFirstName());
     }
 
     @Override

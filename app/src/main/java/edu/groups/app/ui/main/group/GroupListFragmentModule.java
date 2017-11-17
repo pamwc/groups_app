@@ -2,7 +2,6 @@ package edu.groups.app.ui.main.group;
 
 import dagger.Binds;
 import dagger.Module;
-import dagger.Provides;
 import edu.groups.app.di.FragmentScope;
 
 /**
@@ -16,9 +15,7 @@ public abstract class GroupListFragmentModule {
     @FragmentScope
     abstract GroupListContract.View bindGroupListView(GroupListFragment groupListFragment);
 
-    @Provides
+    @Binds
     @FragmentScope
-    static GroupListContract.Presenter provideGroupListPresenter(GroupListContract.View view) {
-        return new GroupListPresenter(view);
-    }
+    abstract GroupListContract.Presenter bindGroupListPresenter(GroupListPresenter groupListPresenter);
 }

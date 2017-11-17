@@ -9,7 +9,7 @@ import edu.groups.app.ui.MvpContract;
 public interface GroupListContract {
 
     interface View extends MvpContract.View {
-
+        void showMessage(String message);
     }
 
     interface Presenter extends MvpContract.Presenter {

@@ -14,8 +14,7 @@ import dagger.android.support.DaggerAppCompatActivity;
 
 public abstract class HostActivity extends DaggerAppCompatActivity {
 
-    @Inject
-    protected FragmentManager fragmentManager;
+    @Inject protected FragmentManager fragmentManager;
 
     protected final void replaceFragment(@IdRes int containerViewId, Fragment fragment) {
         fragmentManager.beginTransaction()

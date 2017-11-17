@@ -1,4 +1,4 @@
-package edu.groups.app.service;
+package edu.groups.app.repository;
 
 import edu.groups.app.model.User;
 import io.realm.Realm;
@@ -9,11 +9,11 @@ import java8.util.Optional;
  * Created by Kamil on 04/11/2017.
  */
 
-public class UserServiceImpl implements UserService {
+public class UserRealmRepositoryImpl implements UserRealmRepository {
 
     private final Realm realm;
 
-    public UserServiceImpl(Realm realm) {
+    public UserRealmRepositoryImpl(Realm realm) {
         this.realm = realm;
     }
 

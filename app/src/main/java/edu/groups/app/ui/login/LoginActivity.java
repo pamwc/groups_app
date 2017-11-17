@@ -1,5 +1,6 @@
 package edu.groups.app.ui.login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
@@ -13,6 +14,7 @@ import butterknife.ButterKnife;
 import dagger.android.support.DaggerAppCompatActivity;
 import edu.groups.app.R;
 import edu.groups.app.model.BasicCredentials;
+import edu.groups.app.ui.main.MainActivity;
 
 public class LoginActivity extends DaggerAppCompatActivity implements LoginContract.View {
 
@@ -54,8 +56,8 @@ public class LoginActivity extends DaggerAppCompatActivity implements LoginContr
 
     @Override
     public void showMessage(String something) {
-        textView.setText(something);
-//        Intent intent = new Intent(this, MainActivity.class);
-//        startActivity(intent);
+//        textView.setText(something);
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 }

@@ -2,10 +2,13 @@ package edu.groups.app.ui.login;
 
 import android.util.Log;
 
+import javax.inject.Inject;
+
 import edu.groups.app.api.ApiService;
 import edu.groups.app.api.BasicAuthInterceptor;
 import edu.groups.app.model.BasicCredentials;
 import edu.groups.app.model.User;
+import edu.groups.app.repository.UserRealmRepository;
 import edu.groups.app.service.UserService;
 import edu.groups.app.ui.BasePresenter;
 import retrofit2.Call;
@@ -21,44 +24,37 @@ public class LoginPresenter extends BasePresenter<LoginContract.View>
 
     private static final String TAG = LoginPresenter.class.getName();
 
-    private final BasicAuthInterceptor interceptor;
+    private final BasicAuthInterceptor authInterceptor;
     private final UserService userService;
+    private final UserRealmRepository userRealmRepository;
     private final ApiService apiService;
 
-    public LoginPresenter(LoginContract.View view, BasicAuthInterceptor interceptor,
-                          UserService userService, ApiService apiService) {
+    @Inject
+    LoginPresenter(LoginContract.View view, BasicAuthInterceptor authInterceptor,
+                   UserRealmRepository userRealmRepository, UserService userService,
+                   ApiService apiService) {
         super(view);
-        this.interceptor = interceptor;
+        this.authInterceptor = authInterceptor;
+        this.userRealmRepository = userRealmRepository;
         this.userService = userService;
         this.apiService = apiService;
     }
 
     @Override
     public void onResume() {
-        userService.get().ifPresent(user ->
-                loginRequest(user.getCredentials())
+        userRealmRepository.get().ifPresent(user ->
+                login(user.getCredentials())
         );
     }
 
     @Override
     public void onDestroy() {
-        userService.dispatch();
+        userRealmRepository.dispatch();
     }
 
     @Override
     public void login(BasicCredentials credentials) {
-        loginRequest(credentials);
-    }
-
-    @Override
-    public void logout() {
-        userService.removeAsync(() ->
-                view.showMessage("Logout!")
-        );
-    }
-
-    private void loginRequest(BasicCredentials credentials) {
-        interceptor.storeCredentials(credentials);
+        authInterceptor.storeCredentials(credentials);
         apiService.aboutMe().enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
@@ -66,10 +62,11 @@ public class LoginPresenter extends BasePresenter<LoginContract.View>
                 if (response.isSuccessful()) {
                     User user = response.body();
                     user.setCredentials(credentials);
-                    Log.e(TAG, user.getCredentials().getPassword());
-                    userService.saveAsync(user, () ->
-                            view.showMessage("Welcome, " + response.body().getFirstName())
-                    );
+
+                    userRealmRepository.saveAsync(user, () -> {
+                        userService.save(user);
+                        view.showMessage("Welcome, " + response.body().getFirstName());
+                    });
                 }
             }
 
@@ -78,5 +75,12 @@ public class LoginPresenter extends BasePresenter<LoginContract.View>
                 Log.e(TAG, t.getMessage());
             }
         });
+    }
+
+    @Override
+    public void logout() {
+        userRealmRepository.removeAsync(() ->
+                view.showMessage("Logout!")
+        );
     }
 }
