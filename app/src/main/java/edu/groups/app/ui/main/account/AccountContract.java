@@ -9,10 +9,11 @@ import edu.groups.app.ui.MvpContract;
 public interface AccountContract {
 
     interface View extends MvpContract.View {
-
+        void showFullName(String fullName);
+        void openLoginActivity();
     }
 
     interface Presenter extends MvpContract.Presenter {
-
+        void logout();
     }
 }

@@ -10,11 +10,10 @@ import edu.groups.app.ui.MvpContract;
 public interface LoginContract {
 
     interface View extends MvpContract.View {
-        void showMessage(String message);
+        void openMainActivity();
     }
 
     interface Presenter extends MvpContract.Presenter {
         void login(BasicCredentials credentials);
-        void logout();
     }
 }

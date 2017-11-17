@@ -65,7 +65,7 @@ public class LoginPresenter extends BasePresenter<LoginContract.View>
 
                     userRealmRepository.saveAsync(user, () -> {
                         userService.save(user);
-                        view.showMessage("Welcome, " + response.body().getFirstName());
+                        view.openMainActivity();
                     });
                 }
             }
@@ -75,12 +75,5 @@ public class LoginPresenter extends BasePresenter<LoginContract.View>
                 Log.e(TAG, t.getMessage());
             }
         });
-    }
-
-    @Override
-    public void logout() {
-        userRealmRepository.removeAsync(() ->
-                view.showMessage("Logout!")
-        );
     }
 }

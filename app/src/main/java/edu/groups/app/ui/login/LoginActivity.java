@@ -1,20 +1,17 @@
 package edu.groups.app.ui.login;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.TextView;
 
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import javax.inject.Inject;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import dagger.android.support.DaggerAppCompatActivity;
 import edu.groups.app.R;
 import edu.groups.app.model.BasicCredentials;
-import edu.groups.app.ui.main.MainActivity;
+import edu.groups.app.navigation.Navigator;
 
 public class LoginActivity extends DaggerAppCompatActivity implements LoginContract.View {
 
@@ -23,8 +20,6 @@ public class LoginActivity extends DaggerAppCompatActivity implements LoginContr
 
     @Inject LoginContract.Presenter presenter;
 
-    @BindView(R.id.text) TextView textView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,14 +27,11 @@ public class LoginActivity extends DaggerAppCompatActivity implements LoginContr
         ButterKnife.bind(this);
 
         FirebaseMessaging.getInstance().subscribeToTopic("foo-bar");
+    }
 
-        final Button loginButton = (Button) findViewById(R.id.login);
-        loginButton.setOnClickListener(view -> presenter.login(
-                new BasicCredentials(USERNAME, PASSWORD)
-        ));
-
-        final Button logoutButton = (Button) findViewById(R.id.logout);
-        logoutButton.setOnClickListener(view -> presenter.logout());
+    @OnClick(R.id.login)
+    public void onClickLogin() {
+        presenter.login(new BasicCredentials(USERNAME, PASSWORD));
     }
 
     @Override
@@ -55,9 +47,7 @@ public class LoginActivity extends DaggerAppCompatActivity implements LoginContr
     }
 
     @Override
-    public void showMessage(String something) {
-//        textView.setText(something);
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+    public void openMainActivity() {
+        Navigator.openMainActivity(this);
     }
 }

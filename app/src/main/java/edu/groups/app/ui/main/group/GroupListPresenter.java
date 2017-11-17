@@ -19,6 +19,7 @@ public class GroupListPresenter extends InnerPresenter<GroupListContract.View>
 
     @Override
     public void onResume() {
+        super.onResume();
         view.showMessage(getCurrentUser().getFirstName());
     }
 }
