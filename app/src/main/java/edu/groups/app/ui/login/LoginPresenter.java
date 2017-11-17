@@ -1,19 +1,16 @@
 package edu.groups.app.ui.login;
 
-import android.util.Log;
-
 import javax.inject.Inject;
 
 import edu.groups.app.api.ApiService;
 import edu.groups.app.api.BasicAuthInterceptor;
 import edu.groups.app.model.BasicCredentials;
-import edu.groups.app.model.User;
 import edu.groups.app.repository.UserRealmRepository;
 import edu.groups.app.service.UserService;
 import edu.groups.app.ui.BasePresenter;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by Kamil on 28/10/2017.
@@ -38,6 +35,8 @@ public class LoginPresenter extends BasePresenter<LoginContract.View>
         this.userRealmRepository = userRealmRepository;
         this.userService = userService;
         this.apiService = apiService;
+
+        initDisposableResources();
     }
 
     @Override
@@ -48,32 +47,23 @@ public class LoginPresenter extends BasePresenter<LoginContract.View>
     }
 
     @Override
-    public void onDestroy() {
-        userRealmRepository.dispatch();
-    }
-
-    @Override
     public void login(BasicCredentials credentials) {
+        view.showMessage("Loading...");
         authInterceptor.storeCredentials(credentials);
-        apiService.aboutMe().enqueue(new Callback<User>() {
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                Log.i(TAG, "Response code: " + response.code());
-                if (response.isSuccessful()) {
-                    User user = response.body();
+        Disposable subscribe = apiService.aboutMe()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(user -> {
                     user.setCredentials(credentials);
-
                     userRealmRepository.saveAsync(user, () -> {
                         userService.save(user);
                         view.openMainActivity();
                     });
-                }
-            }
+                });
+        disposable.add(subscribe);
+    }
 
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-                Log.e(TAG, t.getMessage());
-            }
-        });
+    private void initDisposableResources() {
+        disposable.add(userRealmRepository);
     }
 }

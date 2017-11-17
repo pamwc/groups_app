@@ -41,7 +41,12 @@ public class UserRealmRepositoryImpl implements UserRealmRepository {
     }
 
     @Override
-    public void dispatch() {
+    public boolean isDisposed() {
+        return realm.isClosed();
+    }
+
+    @Override
+    public void dispose() {
         realm.close();
     }
 }

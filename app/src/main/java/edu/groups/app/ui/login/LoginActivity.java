@@ -1,11 +1,13 @@
 package edu.groups.app.ui.login;
 
 import android.os.Bundle;
+import android.widget.TextView;
 
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import dagger.android.support.DaggerAppCompatActivity;
@@ -19,6 +21,8 @@ public class LoginActivity extends DaggerAppCompatActivity implements LoginContr
     private static final String PASSWORD = "test";
 
     @Inject LoginContract.Presenter presenter;
+
+    @BindView(R.id.text) TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +48,11 @@ public class LoginActivity extends DaggerAppCompatActivity implements LoginContr
     protected void onDestroy() {
         presenter.onDestroy();
         super.onDestroy();
+    }
+
+    @Override
+    public void showMessage(String message) {
+        textView.setText(message);
     }
 
     @Override
