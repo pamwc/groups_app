@@ -1,21 +1,28 @@
 package edu.groups.app.model;
 
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
 /**
  * Created by Kamil on 05/11/2017.
  */
 
-public class User {
+public class User extends RealmObject {
 
-    private String username;
+    public static final int ID = 1;
+
+    @PrimaryKey
+    private int id;
     private String firstName;
     private String surname;
+    private BasicCredentials credentials;
 
-    public String getUsername() {
-        return username;
+    public int getId() {
+        return id;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -32,5 +39,13 @@ public class User {
 
     public void setSurname(String surname) {
         this.surname = surname;
+    }
+
+    public BasicCredentials getCredentials() {
+        return credentials;
+    }
+
+    public void setCredentials(BasicCredentials credentials) {
+        this.credentials = credentials;
     }
 }

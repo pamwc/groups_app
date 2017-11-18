@@ -2,6 +2,9 @@ package edu.groups.app.di.module;
 
 import android.content.Context;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -9,9 +12,9 @@ import dagger.Provides;
 import edu.groups.app.api.ApiService;
 import edu.groups.app.api.BasicAuthInterceptor;
 import okhttp3.Cache;
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -21,12 +24,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public abstract class NetModule {
 
-    private static final String BASE_URL = "http://10.0.2.2:8080/";
+    public static final String BASE_URL = "http://10.0.2.2:8080/";
     private static final int MB = 1024 * 1024;
 
     @Provides
     @Singleton
-    static Interceptor provideInterceptor() {
+    static BasicAuthInterceptor provideBasicAuthInterceptor() {
         return new BasicAuthInterceptor();
     }
 
@@ -38,7 +41,7 @@ public abstract class NetModule {
 
     @Provides
     @Singleton
-    static OkHttpClient provideOkHttpClient(Interceptor interceptor, Cache cache) {
+    static OkHttpClient provideOkHttpClient(BasicAuthInterceptor interceptor, Cache cache) {
         return new OkHttpClient.Builder()
                 .addInterceptor(interceptor)
                 .cache(cache)
@@ -48,9 +51,13 @@ public abstract class NetModule {
     @Provides
     @Singleton
     static Retrofit provideRetrofit(OkHttpClient okHttpClient) {
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.setLenient();
+        Gson gson= gsonBuilder.create();
         return new Retrofit.Builder()
                 .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(okHttpClient)
                 .build();
     }

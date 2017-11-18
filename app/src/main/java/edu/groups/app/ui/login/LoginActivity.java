@@ -1,38 +1,41 @@
 package edu.groups.app.ui.login;
 
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import dagger.android.support.DaggerAppCompatActivity;
 import edu.groups.app.R;
+import edu.groups.app.model.BasicCredentials;
+import edu.groups.app.navigation.Navigator;
 
 public class LoginActivity extends DaggerAppCompatActivity implements LoginContract.View {
 
-    private static final String USERNAME = "jan";
+    private static final String USERNAME = "dawid";
     private static final String PASSWORD = "test";
 
-    @Inject
-    LoginContract.Presenter presenter;
+    @Inject LoginContract.Presenter presenter;
 
-    TextView textView;
+    @BindView(R.id.text) TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        ButterKnife.bind(this);
+
         FirebaseMessaging.getInstance().subscribeToTopic("foo-bar");
-        textView = (TextView) findViewById(R.id.text);
+    }
 
-        final Button loginButton = (Button) findViewById(R.id.login);
-        loginButton.setOnClickListener(view -> presenter.login(USERNAME, PASSWORD));
-
-        final Button logoutButton = (Button) findViewById(R.id.logout);
-        logoutButton.setOnClickListener(view -> presenter.logout());
+    @OnClick(R.id.login)
+    public void onClickLogin() {
+        presenter.login(new BasicCredentials(USERNAME, PASSWORD));
     }
 
     @Override
@@ -48,7 +51,12 @@ public class LoginActivity extends DaggerAppCompatActivity implements LoginContr
     }
 
     @Override
-    public void showMessage(String something) {
-        textView.setText(something);
+    public void showMessage(String message) {
+        textView.setText(message);
+    }
+
+    @Override
+    public void openMainActivity() {
+        Navigator.openMainActivity(this);
     }
 }

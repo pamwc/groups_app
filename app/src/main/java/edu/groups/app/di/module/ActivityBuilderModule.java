@@ -5,6 +5,8 @@ import dagger.android.ContributesAndroidInjector;
 import edu.groups.app.di.ActivityScope;
 import edu.groups.app.ui.login.LoginActivity;
 import edu.groups.app.ui.login.LoginActivityModule;
+import edu.groups.app.ui.main.MainActivity;
+import edu.groups.app.ui.main.MainActivityModule;
 
 /**
  * Created by Kamil on 28/10/2017.
@@ -16,4 +18,8 @@ public abstract class ActivityBuilderModule {
     @ActivityScope
     @ContributesAndroidInjector(modules = {LoginActivityModule.class})
     abstract LoginActivity loginActivityInjector();
+
+    @ActivityScope
+    @ContributesAndroidInjector(modules = {MainActivityModule.class})
+    abstract MainActivity mainActivityInjector();
 }

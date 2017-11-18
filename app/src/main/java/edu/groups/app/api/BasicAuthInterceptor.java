@@ -1,11 +1,11 @@
 package edu.groups.app.api;
 
+import android.support.annotation.NonNull;
+
 import java.io.IOException;
 
-import edu.groups.app.model.UserCredentials;
-import edu.groups.app.utils.CredentialsUtils;
-import io.realm.Realm;
-import java8.util.Optional;
+import edu.groups.app.model.BasicCredentials;
+import okhttp3.Credentials;
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -17,29 +17,27 @@ import okhttp3.Response;
 
 public class BasicAuthInterceptor implements Interceptor {
 
+    private static volatile String credentials;
+
+    public static String getCredentials() {
+        return credentials;
+    }
+
+    public void storeCredentials(@NonNull BasicCredentials basicCredentials) {
+        credentials = Credentials.basic(
+                basicCredentials.getUsername(), basicCredentials.getPassword()
+        );
+    }
+
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
-        Optional<UserCredentials> credentials = getUserCredentials();
-        if (credentials.isPresent()) {
-            String basicAuthHeader
-                    = CredentialsUtils.createBasicAuthHeader(credentials.get());
+        if (credentials != null) {
             request = request.newBuilder()
-                    .addHeader("Authorization", basicAuthHeader)
+                    .addHeader("Authorization", credentials)
                     .build();
         }
 
         return chain.proceed(request);
-    }
-
-    private Optional<UserCredentials> getUserCredentials() {
-        try (Realm realm = Realm.getDefaultInstance()) {
-            UserCredentials userCredentials = realm.where(UserCredentials.class)
-                    .equalTo("id", UserCredentials.ID)
-                    .findFirst();
-
-            return Optional.ofNullable(userCredentials)
-                    .map(realm::copyFromRealm);
-        }
     }
 }

@@ -1,8 +1,14 @@
 package edu.groups.app.api;
 
+import java.util.List;
+
+import edu.groups.app.model.SimpleUser;
 import edu.groups.app.model.User;
-import retrofit2.Call;
+import io.reactivex.Completable;
+import io.reactivex.Observable;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 /**
  * Created by Kamil on 04/11/2017.
@@ -11,5 +17,11 @@ import retrofit2.http.GET;
 public interface ApiService {
 
     @GET("users/me")
-    Call<User> aboutMe();
+    Observable<User> aboutMe();
+
+    @GET("/users/{userNames}")
+    Observable<List<SimpleUser>> getUsers(@Path("userNames") String users);
+
+    @POST("/groups/{groupId}/remove/{userName}")
+    Completable removeUserFromGroup(@Path("groupId") Long groupId, @Path("userName") String userName);
 }
