@@ -2,9 +2,7 @@ package edu.groups.app.ui.login;
 
 import dagger.Binds;
 import dagger.Module;
-import dagger.Provides;
-import edu.groups.app.api.ApiService;
-import edu.groups.app.service.AuthService;
+import edu.groups.app.di.ActivityScope;
 
 /**
  * Created by Kamil on 28/10/2017.
@@ -14,11 +12,10 @@ import edu.groups.app.service.AuthService;
 public abstract class LoginActivityModule {
 
     @Binds
+    @ActivityScope
     abstract LoginContract.View bindLoginView(LoginActivity loginActivity);
 
-    @Provides
-    static LoginContract.Presenter provideLoginPresenter(LoginContract.View view, AuthService authService,
-                                                        ApiService apiService) {
-        return new LoginPresenter(view, authService, apiService);
-    }
+    @Binds
+    @ActivityScope
+    abstract LoginContract.Presenter provideLoginPresenter(LoginPresenter loginPresenter);
 }

@@ -9,9 +9,9 @@ import dagger.Provides;
 import edu.groups.app.api.ApiService;
 import edu.groups.app.api.BasicAuthInterceptor;
 import okhttp3.Cache;
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -26,7 +26,7 @@ public abstract class NetModule {
 
     @Provides
     @Singleton
-    static Interceptor provideInterceptor() {
+    static BasicAuthInterceptor provideBasicAuthInterceptor() {
         return new BasicAuthInterceptor();
     }
 
@@ -38,7 +38,7 @@ public abstract class NetModule {
 
     @Provides
     @Singleton
-    static OkHttpClient provideOkHttpClient(Interceptor interceptor, Cache cache) {
+    static OkHttpClient provideOkHttpClient(BasicAuthInterceptor interceptor, Cache cache) {
         return new OkHttpClient.Builder()
                 .addInterceptor(interceptor)
                 .cache(cache)
@@ -51,6 +51,7 @@ public abstract class NetModule {
         return new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(okHttpClient)
                 .build();
     }

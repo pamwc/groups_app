@@ -1,7 +1,7 @@
 package edu.groups.app.api;
 
 import edu.groups.app.model.User;
-import retrofit2.Call;
+import io.reactivex.Observable;
 import retrofit2.http.GET;
 
 /**
@@ -11,5 +11,5 @@ import retrofit2.http.GET;
 public interface ApiService {
 
     @GET("users/me")
-    Call<User> aboutMe();
+    Observable<User> aboutMe();
 }
