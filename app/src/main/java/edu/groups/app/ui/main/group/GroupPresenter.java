@@ -111,19 +111,11 @@ public class GroupPresenter extends InnerPresenter<GroupFragmentContract.View> i
     public void deletePost(int postPosition) {
         Post post = posts.get(postPosition);
         Long postId = post.getId();
-        postService.removePost(postId).enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-
-            }
-
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                //TO DO
-            }
-        });
-        posts.remove(postPosition);
-
+        postService.removePost(postId).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).doOnComplete(()->{
+            posts.remove(postPosition);
+            view.notifyAdapterPostDeleted(postPosition);
+        }).subscribe();
     }
 
     @Override

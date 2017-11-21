@@ -18,6 +18,7 @@ public interface GroupFragmentContract {
         void setGroupTutor(String groupTutor);
         void setAdapter(PostAdapter adapter);
         void notifyAdapterPostAdded();
+        void notifyAdapterPostDeleted(int position);
     }
 
     interface Presenter extends MvpContract.Presenter {

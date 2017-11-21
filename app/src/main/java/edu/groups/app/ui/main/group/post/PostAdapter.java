@@ -41,7 +41,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostViewHolder> {
         holder.setCommentsEnabled(post.getCommentEnabled());
         holder.setOnDeleteButtonClick(v -> {
             groupPresenter.deletePost(position);
-            this.notifyItemRemoved(position);
         });
         holder.setOnCommentButtonClick(v -> groupPresenter.commentPost(position, new Comment()));
     }
