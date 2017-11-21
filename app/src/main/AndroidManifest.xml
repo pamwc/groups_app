@@ -32,8 +32,7 @@
 
         <activity
             android:name=".ui.main.group.GroupActivity"
-            android:label="@string/title_activity_group"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:label="@string/title_activity_group"></activity>
     </application>
 
 </manifest>
