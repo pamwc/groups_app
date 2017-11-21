@@ -4,8 +4,8 @@ import edu.groups.app.model.group.CreateGroupResponseDto;
 import edu.groups.app.model.group.GroupDto;
 import edu.groups.app.model.group.JoinGroupResponseDto;
 import edu.groups.app.model.group.SimpleGroupDto;
+import io.reactivex.Completable;
 import io.reactivex.Observable;
-import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
@@ -29,20 +29,20 @@ public interface GroupService {
     Observable<SimpleGroupDto> getCurrentUserSimpleGroup();
 
     @DELETE("groups/{groupId}")
-    Call<Void> deleteGroup(@Path("groupId") Long groupId);
+    Completable deleteGroup(@Path("groupId") Long groupId);
 
     @GET("groups/{groupId}")
     Observable<GroupDto> getGroup(@Path("groupId") Long groupId);
 
     @PUT("groups/{groupId}")
-    Call<Void> editGroupName(@Path("groupId") Long groupId, @Body String groupName);
+    Completable editGroupName(@Path("groupId") Long groupId, @Body String groupName);
 
     @GET("groups/{groupId}/joinCode")
     Observable<String> getJoinCode(@Path("groupId") Long groupId);
 
     @POST("groups/{groupId}/leave")
-    Call<Void> leaveGroup(@Path("groupId") Long groupId);
+    Completable leaveGroup(@Path("groupId") Long groupId);
 
     @POST("groups/{groupId}/resetJoinCode")
-    Call<Void> resetJoinCode(@Path("groupId") Long groupId);
+    Completable resetJoinCode(@Path("groupId") Long groupId);
 }

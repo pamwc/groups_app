@@ -93,6 +93,11 @@ public class GroupFragment extends BaseViewFragment<GroupFragmentContract.Presen
     }
 
     @Override
+    public void notifyAdapterPostDeleted(int position) {
+        postList.getAdapter().notifyDataSetChanged();
+    }
+
+    @Override
     public void setGroupName(String text){
         groupNameLabel.setText(text);
     }
