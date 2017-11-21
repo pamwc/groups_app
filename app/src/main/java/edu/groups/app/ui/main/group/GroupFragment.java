@@ -25,7 +25,7 @@ import edu.groups.app.ui.main.group.post.PostAdapter;
 public class GroupFragment extends BaseViewFragment<GroupFragmentContract.Presenter> implements GroupFragmentContract.View {
 
     public static final String GROUP_ID = "GROUP_ID";
-    private static final long NO_GROUP_ID = 0L;
+    public static final long NO_GROUP_ID = 0L;
 
     @BindView(R.id.group_admin_label)
     TextView adminLabel;

@@ -11,6 +11,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.groups.app.R;
+import edu.groups.app.navigation.Navigator;
 import edu.groups.app.ui.BaseViewFragment;
 
 /**
@@ -31,9 +32,7 @@ public class GroupListFragment extends BaseViewFragment<GroupListContract.Presen
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), GroupActivity.class);
-                intent.putExtra(GroupActivity.GROUP_ID, 3);
-                getActivity().startActivity(intent);
+                Navigator.openGroupActivity(getActivity(), 3L);
             }
         });
         return view;

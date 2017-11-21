@@ -12,8 +12,9 @@ public class GroupActivity extends HostActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        long groupId = getIntent().getLongExtra(GROUP_ID, GroupFragment.NO_GROUP_ID);
         setContentView(R.layout.activity_group);
-        replaceFragment(R.id.container, GroupFragment.newInstance(3L));
+        replaceFragment(R.id.container, GroupFragment.newInstance(groupId));
     }
 
 }
