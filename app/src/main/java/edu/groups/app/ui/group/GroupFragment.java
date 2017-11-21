@@ -9,8 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -35,9 +33,6 @@ public class GroupFragment extends BaseViewFragment<GroupFragmentContract.Presen
     @BindView(R.id.post_list)
     RecyclerView postList;
 
-    @Inject
-    GroupFragmentContract.Presenter groupPresenter;
-
     private long groupId;
 
     public GroupFragment() {
@@ -45,7 +40,7 @@ public class GroupFragment extends BaseViewFragment<GroupFragmentContract.Presen
 
     @Override
     public void onResume() {
-        groupPresenter.setGroupId(groupId);
+        presenter.setGroupId(groupId);
         super.onResume();
     }
 
