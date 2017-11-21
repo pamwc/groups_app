@@ -1,5 +1,7 @@
 package edu.groups.app.ui.main.group;
 
+import android.support.annotation.NonNull;
+
 import java.util.List;
 
 import javax.inject.Inject;
@@ -16,6 +18,9 @@ import edu.groups.app.ui.main.group.post.PostAdapter;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by howor on 19.11.2017.
@@ -40,14 +45,19 @@ public class GroupPresenter extends InnerPresenter<GroupFragmentContract.View> i
     public void onResume() {
         super.onResume();
         bindViews();
-        Disposable groupSubscribe = groupService.getGroup(groupId).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(group -> {
-                    initializeLabels(group);
-                    initializePosts(group);
-                    setPostAdapter();
-                });
+        Disposable groupSubscribe = getPostsFromApi();
         disposable.add(groupSubscribe);
+    }
+
+    @NonNull
+    private Disposable getPostsFromApi() {
+        return groupService.getGroup(groupId).subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(group -> {
+                        initializeLabels(group);
+                        initializePosts(group);
+                        setPostAdapter();
+                    });
     }
 
     private void setPostAdapter() {
@@ -83,7 +93,12 @@ public class GroupPresenter extends InnerPresenter<GroupFragmentContract.View> i
 
     @Override
     public void addPost(NewPostDto newPostDto) {
-        postService.createNewPost(groupId, newPostDto);
+        postService.createNewPost(groupId, newPostDto).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(postId ->{
+                    disposable.add(getPostsFromApi());
+                    view.notifyAdapterPostAdded();
+                });
 
     }
 
@@ -96,7 +111,17 @@ public class GroupPresenter extends InnerPresenter<GroupFragmentContract.View> i
     public void deletePost(int postPosition) {
         Post post = posts.get(postPosition);
         Long postId = post.getId();
-        postService.removePost(postId);
+        postService.removePost(postId).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                //TO DO
+            }
+        });
         posts.remove(postPosition);
 
     }
