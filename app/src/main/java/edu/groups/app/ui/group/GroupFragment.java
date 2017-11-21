@@ -9,6 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -17,6 +22,9 @@ import edu.groups.app.model.post.NewPostDto;
 import edu.groups.app.ui.BaseViewFragment;
 import edu.groups.app.ui.group.post.AddPostDialog;
 import edu.groups.app.ui.group.post.PostAdapter;
+import edu.groups.app.ui.group.user.UserFragment;
+import edu.groups.app.ui.group.user.UserPagerAdapter;
+import edu.groups.app.ui.shared.HostActivity;
 
 
 public class GroupFragment extends BaseViewFragment<GroupFragmentContract.Presenter> implements GroupFragmentContract.View {
@@ -33,6 +41,7 @@ public class GroupFragment extends BaseViewFragment<GroupFragmentContract.Presen
     @BindView(R.id.post_list)
     RecyclerView postList;
 
+    private GroupContract.View groupView;
     private long groupId;
 
     public GroupFragment() {
@@ -50,8 +59,13 @@ public class GroupFragment extends BaseViewFragment<GroupFragmentContract.Presen
         presenter.onDestroy();
     }
 
-    public static GroupFragment newInstance(Long groupId) {
+    private void setGroupView(GroupContract.View groupView) {
+        this.groupView = groupView;
+    }
+
+    public static GroupFragment newInstance(Long groupId, GroupContract.View groupView) {
         GroupFragment fragment = new GroupFragment();
+        fragment.setGroupView(groupView);
         Bundle args = new Bundle();
         args.putLong(GROUP_ID, groupId);
         fragment.setArguments(args);
@@ -69,6 +83,18 @@ public class GroupFragment extends BaseViewFragment<GroupFragmentContract.Presen
         }
         postList.setLayoutManager(new LinearLayoutManager(getActivity()));
         return view;
+    }
+
+    @OnClick(R.id.members_button)
+    public void onClickShowMembersButton() {
+        List<String> admins = presenter.getGroupAdmins();
+        List<String> members = presenter.getGroupMembers();
+
+        Bundle bundle = new Bundle();
+        bundle.putLong(UserPagerAdapter.GROUP_ID, groupId);
+        bundle.putStringArrayList(UserFragment.USERNAME_ADMINS, new ArrayList<>(admins));
+        bundle.putStringArrayList(UserFragment.USERNAME_STUDENTS, new ArrayList<>(members));
+        groupView.openGroupMembers(bundle);
     }
 
     @Override

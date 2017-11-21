@@ -38,5 +38,9 @@
 
     </android.support.v7.widget.RecyclerView>
 
-
+    <Button
+        android:id="@+id/members_button"
+        android:text="@string/show_members"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </LinearLayout>

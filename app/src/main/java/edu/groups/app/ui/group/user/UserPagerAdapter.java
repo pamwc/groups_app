@@ -25,8 +25,18 @@ public class UserPagerAdapter extends FragmentPagerAdapter {
     public UserPagerAdapter(FragmentManager fm, List<SimpleUser> admins, List<SimpleUser> students,
                             Long groupId) {
         super(fm);
-        this.admins = new ArrayList<>(admins);
-        this.students = new ArrayList<>(students);
+
+        if (admins == null) {
+            this.admins = new ArrayList<>();
+        } else {
+            this.admins = new ArrayList<>(admins);
+        }
+
+        if (students == null) {
+            this.students = new ArrayList<>();
+        } else {
+            this.students = new ArrayList<>(students);
+        }
         this.groupId = groupId;
     }
 

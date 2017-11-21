@@ -28,6 +28,7 @@ public class GroupPresenter extends InnerPresenter<GroupFragmentContract.View> i
     private List<Post> posts;
     private GroupService groupService;
     private PostService postService;
+    private GroupDto group;
     private long groupId;
 
     @Inject
@@ -51,6 +52,7 @@ public class GroupPresenter extends InnerPresenter<GroupFragmentContract.View> i
         return groupService.getGroup(groupId).subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(group -> {
+                        this.group = group;
                         initializeLabels(group);
                         initializePosts(group);
                         setPostAdapter();
@@ -123,6 +125,16 @@ public class GroupPresenter extends InnerPresenter<GroupFragmentContract.View> i
     @Override
     public int getPostCount() {
         return posts.size();
+    }
+
+    @Override
+    public List<String> getGroupAdmins() {
+        return group.getAdminsUserNames();
+    }
+
+    @Override
+    public List<String> getGroupMembers() {
+        return group.getMembersUserNames();
     }
 
     @Override

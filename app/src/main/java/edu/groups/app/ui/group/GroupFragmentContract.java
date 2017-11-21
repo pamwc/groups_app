@@ -1,5 +1,7 @@
 package edu.groups.app.ui.group;
 
+import java.util.List;
+
 import edu.groups.app.model.group.Post;
 import edu.groups.app.model.post.NewPostDto;
 import edu.groups.app.ui.MvpContract;
@@ -28,5 +30,8 @@ public interface GroupFragmentContract {
         int getPostCount();
         void setGroupId(long groupId);
         Post getPost(int position);
+
+        List<String> getGroupAdmins();
+        List<String> getGroupMembers();
     }
 }
