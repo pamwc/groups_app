@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import javax.inject.Inject;
 
 import edu.groups.app.R;
+import edu.groups.app.model.group.Post;
 import edu.groups.app.ui.main.group.GroupFragmentContract;
 
 /**
@@ -32,7 +33,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostViewHolder> {
 
     @Override
     public void onBindViewHolder(PostViewHolder holder, int position) {
-        holder.setContent(groupPresenter.getPost(position).getContent());
+        Post post = groupPresenter.getPost(position);
+        holder.setTitle(post.getTitle());
+        holder.setAuthor(post.getAuthorUserName());
+        holder.setCreationDate(post.getCreationTime());
+        holder.setContent(post.getContent());
+        holder.setCommentsEnabled(post.getCommentEnabled());
         holder.setOnDeleteButtonClick(v -> {
             groupPresenter.deletePost(position);
             this.notifyItemRemoved(position);

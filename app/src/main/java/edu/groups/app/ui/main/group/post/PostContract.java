@@ -8,9 +8,13 @@ import android.view.View;
 
 public interface PostContract {
     public interface View {
+        void setTitle(String title);
         void setContent(String content);
+        void setAuthor(String author);
+        void setCreationDate(String creationDate);
         void setOnDeleteButtonClick(android.view.View.OnClickListener onClickListener);
         void setOnCommentButtonClick(android.view.View.OnClickListener onClickListener);
+        void setCommentsEnabled(boolean commentsEnabled);
     }
 
     public interface Presenter {

@@ -18,6 +18,15 @@ import edu.groups.app.R;
 
 public class PostViewHolder extends RecyclerView.ViewHolder implements PostContract.View {
 
+    @BindView(R.id.post_title)
+    TextView postTitle;
+
+    @BindView(R.id.post_creation_date)
+    TextView postCreationDate;
+
+    @BindView(R.id.post_author)
+    TextView postAuthor;
+
     @BindView(R.id.post_content)
     TextView postContent;
 
@@ -36,8 +45,23 @@ public class PostViewHolder extends RecyclerView.ViewHolder implements PostContr
     }
 
     @Override
+    public void setTitle(String title) {
+        postTitle.setText(title);
+    }
+
+    @Override
     public void setContent(String content) {
         postContent.setText(content);
+    }
+
+    @Override
+    public void setAuthor(String author) {
+        postAuthor.setText(author);
+    }
+
+    @Override
+    public void setCreationDate(String creationDate) {
+        postCreationDate.setText(creationDate);
     }
 
     @Override
@@ -48,5 +72,11 @@ public class PostViewHolder extends RecyclerView.ViewHolder implements PostContr
     @Override
     public void setOnCommentButtonClick(View.OnClickListener onClickListener) {
         commentButton.setOnClickListener(onClickListener);
+    }
+
+    @Override
+    public void setCommentsEnabled(boolean commentsEnabled) {
+        commentButton.setEnabled(commentsEnabled);
+        commentButton.setClickable(commentsEnabled);
     }
 }
