@@ -13,22 +13,26 @@
         <activity android:name=".ui.login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".ui.main.MainActivity" />
-        <service
-            android:name=".firebase.InstanceIDService">
+
+        <service android:name=".firebase.InstanceIDService">
             <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-        <service
-            android:name=".firebase.FirebaseNotificationMessagingService">
+        <service android:name=".firebase.FirebaseNotificationMessagingService">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
+        <activity
+            android:name=".ui.main.group.GroupActivity"
+            android:label="@string/title_activity_group"></activity>
     </application>
 
 </manifest>
