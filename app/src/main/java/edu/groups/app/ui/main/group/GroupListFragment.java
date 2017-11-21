@@ -1,5 +1,6 @@
 package edu.groups.app.ui.main.group;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -27,6 +28,14 @@ public class GroupListFragment extends BaseViewFragment<GroupListContract.Presen
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_group_list, container, false);
         ButterKnife.bind(this, view);
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), GroupActivity.class);
+                intent.putExtra(GroupActivity.GROUP_ID, 3);
+                getActivity().startActivity(intent);
+            }
+        });
         return view;
     }
 

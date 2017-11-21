@@ -5,15 +5,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import javax.inject.Inject;
+
 import edu.groups.app.R;
-import edu.groups.app.ui.main.group.GroupContract;
+import edu.groups.app.ui.main.group.GroupFragmentContract;
 
 /**
  * Created by howor on 18.11.2017.
  */
 
 public class PostAdapter extends RecyclerView.Adapter<PostViewHolder> {
-    private GroupContract.Presenter groupPresenter;
+
+    @Inject
+    public PostAdapter(GroupFragmentContract.Presenter groupPresenter) {
+        this.groupPresenter = groupPresenter;
+        setHasStableIds(true);
+    }
+
+    private GroupFragmentContract.Presenter groupPresenter;
 
     @Override
     public PostViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -23,13 +32,21 @@ public class PostAdapter extends RecyclerView.Adapter<PostViewHolder> {
 
     @Override
     public void onBindViewHolder(PostViewHolder holder, int position) {
-        holder.setContent(groupPresenter.getPostContent(position));
-        holder.setOnDeleteButtonClick(v -> groupPresenter.deletePost(position));
-        holder.setOnDeleteButtonClick(v -> groupPresenter.commentPost(position, new Comment()));
+        holder.setContent(groupPresenter.getPost(position).getContent());
+        holder.setOnDeleteButtonClick(v -> {
+            groupPresenter.deletePost(position);
+            this.notifyItemRemoved(position);
+        });
+        holder.setOnCommentButtonClick(v -> groupPresenter.commentPost(position, new Comment()));
     }
 
     @Override
     public int getItemCount() {
         return groupPresenter.getPostCount();
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return groupPresenter.getPost(position).getId();
     }
 }

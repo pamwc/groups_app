@@ -1,8 +1,10 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="edu.groups.app.ui.main.group.GroupFragment">
+    tools:context="edu.groups.app.ui.main.group.GroupFragment"
+    android:orientation="vertical"
+    tools:showIn="@layout/activity_group">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -25,6 +27,11 @@
             android:text="FOKIN STUB"/>
     </LinearLayout>
 
+    <Button
+        android:id="@+id/add_post_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ADD POST"/>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/post_list"
         android:layout_width="match_parent"
@@ -33,4 +40,4 @@
     </android.support.v7.widget.RecyclerView>
 
 
-</FrameLayout>
+</LinearLayout>

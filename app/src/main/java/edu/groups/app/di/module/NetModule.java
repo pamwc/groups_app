@@ -8,6 +8,8 @@ import dagger.Module;
 import dagger.Provides;
 import edu.groups.app.api.ApiService;
 import edu.groups.app.api.BasicAuthInterceptor;
+import edu.groups.app.api.GroupService;
+import edu.groups.app.api.PostService;
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
@@ -60,5 +62,17 @@ public abstract class NetModule {
     @Singleton
     static ApiService provideApiService(Retrofit retrofit) {
         return retrofit.create(ApiService.class);
+    }
+
+    @Provides
+    @Singleton
+    static GroupService provideGroupService(Retrofit retrofit) {
+        return retrofit.create(GroupService.class);
+    }
+
+    @Provides
+    @Singleton
+    static PostService providePostService(Retrofit retrofit) {
+        return retrofit.create(PostService.class);
     }
 }

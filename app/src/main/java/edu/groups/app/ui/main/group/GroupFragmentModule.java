@@ -12,9 +12,9 @@ import edu.groups.app.di.FragmentScope;
 public abstract class GroupFragmentModule {
     @Binds
     @FragmentScope
-    abstract GroupContract.View bindGroupListView(GroupFragment groupFragment);
+    abstract GroupFragmentContract.View bindGroupListView(GroupFragment groupFragment);
 
     @Binds
     @FragmentScope
-    abstract GroupContract.Presenter bindGroupListPresenter(GroupPresenter groupPresenter);
+    abstract GroupFragmentContract.Presenter bindGroupListPresenter(GroupPresenter groupPresenter);
 }
