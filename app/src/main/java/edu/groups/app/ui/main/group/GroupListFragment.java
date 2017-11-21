@@ -10,6 +10,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.groups.app.R;
+import edu.groups.app.navigation.Navigator;
 import edu.groups.app.ui.BaseViewFragment;
 
 /**
@@ -27,6 +28,12 @@ public class GroupListFragment extends BaseViewFragment<GroupListContract.Presen
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_group_list, container, false);
         ButterKnife.bind(this, view);
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigator.openGroupActivity(getActivity(), 3L);
+            }
+        });
         return view;
     }
 

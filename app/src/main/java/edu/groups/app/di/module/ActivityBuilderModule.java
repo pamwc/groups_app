@@ -3,6 +3,8 @@ package edu.groups.app.di.module;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 import edu.groups.app.di.ActivityScope;
+import edu.groups.app.ui.group.GroupActivity;
+import edu.groups.app.ui.group.GroupActivityModule;
 import edu.groups.app.ui.login.LoginActivity;
 import edu.groups.app.ui.login.LoginActivityModule;
 import edu.groups.app.ui.main.MainActivity;
@@ -22,4 +24,8 @@ public abstract class ActivityBuilderModule {
     @ActivityScope
     @ContributesAndroidInjector(modules = {MainActivityModule.class})
     abstract MainActivity mainActivityInjector();
+
+    @ActivityScope
+    @ContributesAndroidInjector(modules = {GroupActivityModule.class})
+    abstract GroupActivity groupActivityInjector();
 }

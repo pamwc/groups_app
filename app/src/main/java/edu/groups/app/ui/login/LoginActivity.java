@@ -18,7 +18,7 @@ import edu.groups.app.navigation.Navigator;
 
 public class LoginActivity extends DaggerAppCompatActivity implements LoginContract.View {
 
-    private static final String USERNAME = "jan";
+    private static final String USERNAME = "dawid";
     private static final String PASSWORD = "test";
 
     @Inject LoginContract.Presenter presenter;
