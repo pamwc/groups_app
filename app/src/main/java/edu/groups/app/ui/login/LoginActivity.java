@@ -18,9 +18,6 @@ import edu.groups.app.navigation.Navigator;
 
 public class LoginActivity extends DaggerAppCompatActivity implements LoginContract.View {
 
-    private static final String USERNAME = "dawid";
-    private static final String PASSWORD = "test";
-
     @Inject LoginContract.Presenter presenter;
 
     @BindView(R.id.text) TextView textView;
@@ -42,7 +39,9 @@ public class LoginActivity extends DaggerAppCompatActivity implements LoginContr
 
     @OnClick(R.id.login)
     public void onClickLogin() {
-        presenter.login(new BasicCredentials(login_input.getText().toString(), password_input.getText().toString()));
+        presenter.login(new BasicCredentials(
+                login_input.getText().toString(), password_input.getText().toString()
+        ));
     }
 
     @Override
