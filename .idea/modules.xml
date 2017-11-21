@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/GroupsApp.iml" filepath="$PROJECT_DIR$/GroupsApp.iml" />
+      <module fileurl="file://C:\Users\howor\AndroidProjects\groups_app\GroupsApp.iml" filepath="C:\Users\howor\AndroidProjects\groups_app\GroupsApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://D:\Projekty\Android\GroupsApp\groups_app.iml" filepath="D:\Projekty\Android\GroupsApp\groups_app.iml" />
     </modules>
   </component>
 </project>

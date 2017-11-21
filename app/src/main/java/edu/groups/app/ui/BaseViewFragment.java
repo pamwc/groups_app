@@ -2,7 +2,7 @@ package edu.groups.app.ui;
 
 import javax.inject.Inject;
 
-import dagger.android.DaggerFragment;
+import dagger.android.support.DaggerFragment;
 
 /**
  * Created by Kamil on 10/11/2017.
@@ -11,7 +11,8 @@ import dagger.android.DaggerFragment;
 public abstract class BaseViewFragment<T extends MvpContract.Presenter> extends DaggerFragment
         implements MvpContract.View {
 
-    @Inject protected T presenter;
+    @Inject
+    protected T presenter;
 
     @Override
     public void onResume() {

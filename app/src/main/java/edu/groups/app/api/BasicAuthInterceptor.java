@@ -17,7 +17,11 @@ import okhttp3.Response;
 
 public class BasicAuthInterceptor implements Interceptor {
 
-    private volatile String credentials;
+    private static volatile String credentials;
+
+    public static String getCredentials() {
+        return credentials;
+    }
 
     public void storeCredentials(@NonNull BasicCredentials basicCredentials) {
         credentials = Credentials.basic(
