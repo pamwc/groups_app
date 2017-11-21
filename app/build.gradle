@@ -6,6 +6,10 @@ apply plugin: 'realm-android'
 repositories {
     mavenCentral()
     maven { url "https://clojars.org/repo/" }
+    maven {
+        url 'https://maven.google.com/'
+        name 'Google'
+    }
 }
 
 android {
@@ -33,10 +37,13 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:support-v4:25.4.0'
+    compile 'com.android.support:appcompat-v7:25.4.0'
+    compile 'com.android.support:cardview-v7:25.4.0'
+    compile 'com.android.support:recyclerview-v7:25.4.0'
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:design:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
 
@@ -73,6 +80,19 @@ dependencies {
 
     // Firebase cloud messaging
     compile 'com.google.firebase:firebase-messaging:10.0.1'
+
+    // Glide
+    compile 'com.github.bumptech.glide:glide:4.3.1'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.3.1'
+
+    //Lombock
+    compile "org.projectlombok:lombok:1.16.18"
+
+    //Apache commons
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.7'
+    compile group: 'org.apache.commons', name: 'commons-collections4', version: '4.1'
+
+
 
     // Testing
     testCompile 'junit:junit:4.12'
