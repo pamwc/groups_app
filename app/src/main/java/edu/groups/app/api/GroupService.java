@@ -1,5 +1,7 @@
 package edu.groups.app.api;
 
+import java.util.List;
+
 import edu.groups.app.model.group.CreateGroupResponseDto;
 import edu.groups.app.model.group.GroupDto;
 import edu.groups.app.model.group.JoinGroupResponseDto;
@@ -26,7 +28,7 @@ public interface GroupService {
     Observable<JoinGroupResponseDto> joinCurrentUserToGroup(@Body String code);
 
     @GET("groups/my")
-    Observable<SimpleGroupDto> getCurrentUserSimpleGroup();
+    Observable<List<SimpleGroupDto>> getCurrentUserSimpleGroup();
 
     @DELETE("groups/{groupId}")
     Completable deleteGroup(@Path("groupId") Long groupId);

@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.groups.app.R;
+import edu.groups.app.navigation.Navigator;
 import edu.groups.app.ui.BaseViewFragment;
 import edu.groups.app.ui.main.group.adapter.GroupRecyclerAdapter;
 
@@ -36,5 +37,15 @@ public class GroupListFragment extends BaseViewFragment<GroupListContract.Presen
     private void setUpRecyclerView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(new GroupRecyclerAdapter(presenter));
+    }
+
+    @Override
+    public void refresh() {
+        recyclerView.getAdapter().notifyDataSetChanged();
+    }
+
+    @Override
+    public void openGroupActivity(Long groupId) {
+        Navigator.openGroupActivity(getActivity(), groupId);
     }
 }

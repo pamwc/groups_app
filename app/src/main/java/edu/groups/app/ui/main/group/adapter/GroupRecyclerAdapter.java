@@ -30,10 +30,21 @@ public class GroupRecyclerAdapter extends RecyclerView.Adapter<GroupViewHolder> 
     @Override
     public void onBindViewHolder(GroupViewHolder holder, int position) {
         presenter.onBindViewHolder(holder, position);
+        holder.setOnClick(view -> presenter.onClickGroup(position));
     }
 
     @Override
     public int getItemCount() {
         return presenter.getGroupRowsCount();
+    }
+
+    @Override
+    public void setHasStableIds(boolean hasStableIds) {
+        super.setHasStableIds(true);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return presenter.getGroupId(position);
     }
 }

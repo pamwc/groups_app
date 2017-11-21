@@ -25,4 +25,8 @@ public class GroupViewHolder extends RecyclerView.ViewHolder implements GroupRow
     public void setName(String name) {
         this.name.setText(name);
     }
+
+    public void setOnClick(View.OnClickListener listener) {
+        name.setOnClickListener(listener);
+    }
 }
