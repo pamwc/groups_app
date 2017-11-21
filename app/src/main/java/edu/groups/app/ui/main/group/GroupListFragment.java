@@ -31,7 +31,7 @@ public class GroupListFragment extends BaseViewFragment<GroupListContract.Presen
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigator.openGroupActivity(getActivity(), 3L);
+                Navigator.openGroupActivity(getActivity(), 2L);
             }
         });
         return view;

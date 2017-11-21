@@ -1,6 +1,7 @@
 package edu.groups.app.ui.login;
 
 import android.os.Bundle;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.firebase.messaging.FirebaseMessaging;
@@ -17,12 +18,15 @@ import edu.groups.app.navigation.Navigator;
 
 public class LoginActivity extends DaggerAppCompatActivity implements LoginContract.View {
 
-    private static final String USERNAME = "dawid";
-    private static final String PASSWORD = "test";
-
     @Inject LoginContract.Presenter presenter;
 
     @BindView(R.id.text) TextView textView;
+
+    @BindView(R.id.login_input)
+    EditText login_input;
+
+    @BindView(R.id.password_input)
+    EditText password_input;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +39,9 @@ public class LoginActivity extends DaggerAppCompatActivity implements LoginContr
 
     @OnClick(R.id.login)
     public void onClickLogin() {
-        presenter.login(new BasicCredentials(USERNAME, PASSWORD));
+        presenter.login(new BasicCredentials(
+                login_input.getText().toString(), password_input.getText().toString()
+        ));
     }
 
     @Override

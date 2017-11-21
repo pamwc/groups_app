@@ -53,13 +53,18 @@ public class LoginPresenter extends BasePresenter<LoginContract.View>
         Disposable subscribe = apiService.aboutMe()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(user -> {
-                    user.setCredentials(credentials);
-                    userRealmRepository.saveAsync(user, () -> {
-                        userService.save(user);
-                        view.openMainActivity();
-                    });
-                });
+                .subscribe(
+                        user -> {
+                            user.setCredentials(credentials);
+                            userRealmRepository.saveAsync(user, () -> {
+                                userService.save(user);
+                                view.openMainActivity();
+                            });
+                        },
+                        error -> {
+                            view.showMessage("Invalid username or password");
+                        }
+                );
         disposable.add(subscribe);
     }
 
