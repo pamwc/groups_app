@@ -1,4 +1,4 @@
-package edu.groups.app.ui.main.group.user;
+package edu.groups.app.ui.group.user;
 
 import org.apache.commons.collections4.ListUtils;
 import org.apache.commons.lang3.StringUtils;

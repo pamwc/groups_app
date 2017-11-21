@@ -1,4 +1,4 @@
-package edu.groups.app.ui.main.group.post;
+package edu.groups.app.ui.group.post;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,7 +9,7 @@ import javax.inject.Inject;
 
 import edu.groups.app.R;
 import edu.groups.app.model.group.Post;
-import edu.groups.app.ui.main.group.GroupFragmentContract;
+import edu.groups.app.ui.group.GroupFragmentContract;
 
 /**
  * Created by howor on 18.11.2017.

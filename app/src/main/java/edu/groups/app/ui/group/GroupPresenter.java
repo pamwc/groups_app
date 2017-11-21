@@ -1,4 +1,4 @@
-package edu.groups.app.ui.main.group;
+package edu.groups.app.ui.group;
 
 import android.support.annotation.NonNull;
 
@@ -13,14 +13,11 @@ import edu.groups.app.model.group.Post;
 import edu.groups.app.model.post.NewPostDto;
 import edu.groups.app.service.UserService;
 import edu.groups.app.ui.InnerPresenter;
-import edu.groups.app.ui.main.group.post.Comment;
-import edu.groups.app.ui.main.group.post.PostAdapter;
+import edu.groups.app.ui.group.post.Comment;
+import edu.groups.app.ui.group.post.PostAdapter;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * Created by howor on 19.11.2017.

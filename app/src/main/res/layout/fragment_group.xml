@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="edu.groups.app.ui.main.group.GroupFragment"
+    tools:context="edu.groups.app.ui.group.GroupFragment"
     android:orientation="vertical"
     tools:showIn="@layout/activity_group">
 

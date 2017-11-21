@@ -1,4 +1,4 @@
-package edu.groups.app.ui.main.group.user;
+package edu.groups.app.ui.group.user;
 
 import edu.groups.app.ui.MvpContract;
 

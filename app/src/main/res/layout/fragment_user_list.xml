@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="edu.groups.app.ui.main.group.user.UserListFragment">
+    tools:context=".ui.group.user.UserListFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/users"

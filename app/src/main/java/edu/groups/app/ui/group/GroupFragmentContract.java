@@ -1,11 +1,10 @@
-package edu.groups.app.ui.main.group;
+package edu.groups.app.ui.group;
 
 import edu.groups.app.model.group.Post;
 import edu.groups.app.model.post.NewPostDto;
 import edu.groups.app.ui.MvpContract;
-import edu.groups.app.ui.main.group.post.Comment;
-import edu.groups.app.ui.main.group.post.PostAdapter;
-import edu.groups.app.ui.main.group.post.PostContract;
+import edu.groups.app.ui.group.post.Comment;
+import edu.groups.app.ui.group.post.PostAdapter;
 
 /**
  * Created by howor on 19.11.2017.

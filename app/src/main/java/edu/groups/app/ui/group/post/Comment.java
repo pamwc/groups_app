@@ -1,4 +1,4 @@
-package edu.groups.app.ui.main.group.post;
+package edu.groups.app.ui.group.post;
 
 /**
  * Created by howor on 19.11.2017.

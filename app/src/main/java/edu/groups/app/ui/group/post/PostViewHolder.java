@@ -1,15 +1,12 @@
-package edu.groups.app.ui.main.group.post;
+package edu.groups.app.ui.group.post;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import javax.annotation.Nullable;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import edu.groups.app.R;
 
 /**

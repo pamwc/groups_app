@@ -1,4 +1,4 @@
-package edu.groups.app.ui.main.group.user;
+package edu.groups.app.ui.group.user;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,9 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.groups.app.R;
-import edu.groups.app.api.ApiService;
 import edu.groups.app.model.SimpleUser;
-import io.reactivex.Observable;
 
 import static java8.util.Optional.ofNullable;
 

@@ -3,9 +3,9 @@ package edu.groups.app.navigation;
 import android.content.Context;
 import android.content.Intent;
 
+import edu.groups.app.ui.group.GroupActivity;
 import edu.groups.app.ui.login.LoginActivity;
 import edu.groups.app.ui.main.MainActivity;
-import edu.groups.app.ui.main.group.GroupActivity;
 
 /**
  * Created by Kamil on 17/11/2017.

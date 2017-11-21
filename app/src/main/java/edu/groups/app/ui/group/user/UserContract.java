@@ -1,6 +1,5 @@
-package edu.groups.app.ui.main.group.user;
+package edu.groups.app.ui.group.user;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import edu.groups.app.model.SimpleUser;

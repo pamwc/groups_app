@@ -1,4 +1,4 @@
-package edu.groups.app.ui.main.group.user;
+package edu.groups.app.ui.group.user;
 
 
 import android.os.Bundle;
@@ -13,18 +13,14 @@ import android.widget.Toast;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import dagger.android.support.DaggerFragment;
 import edu.groups.app.R;
-import edu.groups.app.api.ApiService;
 import edu.groups.app.model.SimpleUser;
 import edu.groups.app.ui.BaseViewFragment;
 
-import static edu.groups.app.ui.main.group.user.UserPagerAdapter.GROUP_ID;
-import static edu.groups.app.ui.main.group.user.UserPagerAdapter.USERS;
+import static edu.groups.app.ui.group.user.UserPagerAdapter.GROUP_ID;
+import static edu.groups.app.ui.group.user.UserPagerAdapter.USERS;
 
 /**
  * A simple {@link Fragment} subclass.

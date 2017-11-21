@@ -1,4 +1,4 @@
-package edu.groups.app.ui.main.group.user;
+package edu.groups.app.ui.group.user;
 
 
 import android.os.Bundle;
@@ -17,7 +17,7 @@ import edu.groups.app.R;
 import edu.groups.app.model.SimpleUser;
 import edu.groups.app.ui.BaseViewFragment;
 
-import static edu.groups.app.ui.main.group.user.UserPagerAdapter.GROUP_ID;
+import static edu.groups.app.ui.group.user.UserPagerAdapter.GROUP_ID;
 
 /**
  * A simple {@link Fragment} subclass.

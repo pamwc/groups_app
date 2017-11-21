@@ -1,4 +1,4 @@
-package edu.groups.app.ui.main.group;
+package edu.groups.app.ui.group;
 
 import dagger.Binds;
 import dagger.Module;

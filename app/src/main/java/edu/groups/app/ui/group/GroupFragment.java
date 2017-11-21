@@ -1,8 +1,7 @@
-package edu.groups.app.ui.main.group;
+package edu.groups.app.ui.group;
 
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,8 +17,8 @@ import butterknife.OnClick;
 import edu.groups.app.R;
 import edu.groups.app.model.post.NewPostDto;
 import edu.groups.app.ui.BaseViewFragment;
-import edu.groups.app.ui.main.group.post.AddPostDialog;
-import edu.groups.app.ui.main.group.post.PostAdapter;
+import edu.groups.app.ui.group.post.AddPostDialog;
+import edu.groups.app.ui.group.post.PostAdapter;
 
 
 public class GroupFragment extends BaseViewFragment<GroupFragmentContract.Presenter> implements GroupFragmentContract.View {

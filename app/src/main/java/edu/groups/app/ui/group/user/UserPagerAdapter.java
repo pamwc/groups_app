@@ -1,4 +1,4 @@
-package edu.groups.app.ui.main.group.user;
+package edu.groups.app.ui.group.user;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.groups.app.model.SimpleUser;
-import edu.groups.app.model.User;
 
 /**
  * Created by Dawid Świnoga on 19.11.2017.

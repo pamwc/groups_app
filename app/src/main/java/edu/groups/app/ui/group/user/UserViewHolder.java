@@ -1,4 +1,4 @@
-package edu.groups.app.ui.main.group.user;
+package edu.groups.app.ui.group.user;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
