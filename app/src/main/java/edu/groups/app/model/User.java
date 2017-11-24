@@ -1,12 +1,19 @@
 package edu.groups.app.model;
 
+import java.util.List;
+
+import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * Created by Kamil on 05/11/2017.
  */
 
+@EqualsAndHashCode(callSuper = true)
+@Data
 public class User extends RealmObject {
 
     public static final int ID = 1;
@@ -16,36 +23,14 @@ public class User extends RealmObject {
     private String firstName;
     private String surname;
     private BasicCredentials credentials;
+    private RealmList<String> roles;
 
-    public int getId() {
-        return id;
+    public List<String> getRoles() {
+        return roles;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public BasicCredentials getCredentials() {
-        return credentials;
-    }
-
-    public void setCredentials(BasicCredentials credentials) {
-        this.credentials = credentials;
+    public void setRoles(List<String> roles) {
+        this.roles = new RealmList<>();
+        this.roles.addAll(roles);
     }
 }
