@@ -48,6 +48,9 @@ public class UserPresenter extends InnerPresenter<UserContract.View>
                     final Map<Boolean, List<SimpleUser>> collect = stream(that)
                             .collect(groupingBy(user -> admins.contains(user.getUsername())));
                     view.publishUsers(collect.get(ADMINS), collect.get(USERS));
+                }, throwable -> {
+                    view.showError(throwable.getMessage());
+                    view.finish();
                 });
         disposable.add(subscribe);
 

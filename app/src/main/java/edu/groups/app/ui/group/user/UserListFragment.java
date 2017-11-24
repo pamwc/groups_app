@@ -13,9 +13,12 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.groups.app.R;
+import edu.groups.app.api.ApiService;
 import edu.groups.app.model.SimpleUser;
 import edu.groups.app.ui.BaseViewFragment;
 
@@ -34,6 +37,8 @@ public class UserListFragment extends BaseViewFragment<UserListContract.Presente
     @BindView(R.id.users)
     RecyclerView recyclerView;
 
+    @Inject
+    ApiService apiService;
 
     public UserListFragment() {
     }
@@ -53,8 +58,7 @@ public class UserListFragment extends BaseViewFragment<UserListContract.Presente
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(),
                 layoutManager.getOrientation());
         recyclerView.addItemDecoration(dividerItemDecoration);
-        presenter.setGroupId(groupId);
-        userAdapter = new UserAdapter(users, presenter::removeUser);
+        userAdapter = new UserAdapter(users, apiService, presenter.getCurrentUser(), groupId);
         recyclerView.setAdapter(userAdapter);
 
         return view;
@@ -65,10 +69,5 @@ public class UserListFragment extends BaseViewFragment<UserListContract.Presente
         users = arguments.getParcelableArrayList(USERS);
         groupId = arguments.getLong(GROUP_ID);
 
-    }
-
-    @Override
-    public void showToast(String text) {
-        Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
     }
 }

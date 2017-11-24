@@ -12,6 +12,10 @@ import edu.groups.app.ui.MvpContract;
 public interface UserContract {
     public interface View extends MvpContract.View{
         void publishUsers(List<SimpleUser> admins, List<SimpleUser> students);
+
+        void showError(String message);
+
+        void finish();
     }
 
     public interface Presenter extends MvpContract.Presenter{

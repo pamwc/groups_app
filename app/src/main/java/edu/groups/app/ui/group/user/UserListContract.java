@@ -1,5 +1,6 @@
 package edu.groups.app.ui.group.user;
 
+import edu.groups.app.model.User;
 import edu.groups.app.ui.MvpContract;
 
 /**
@@ -8,12 +9,10 @@ import edu.groups.app.ui.MvpContract;
 
 public interface UserListContract {
     public interface Presenter extends MvpContract.Presenter {
-        void removeUser(String username);
-
-        void setGroupId(Long groupId);
+        User getCurrentUser();
     }
 
     public interface View extends MvpContract.Presenter, MvpContract.View {
-        void showToast(String text);
+
     }
 }
