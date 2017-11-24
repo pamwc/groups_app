@@ -7,8 +7,12 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import edu.groups.app.model.SimpleUser;
+import java8.util.Optional;
+
+import static java8.util.Optional.ofNullable;
 
 /**
  * Created by Dawid Świnoga on 19.11.2017.
@@ -25,19 +29,13 @@ public class UserPagerAdapter extends FragmentPagerAdapter {
     public UserPagerAdapter(FragmentManager fm, List<SimpleUser> admins, List<SimpleUser> students,
                             Long groupId) {
         super(fm);
-
-        if (admins == null) {
-            this.admins = new ArrayList<>();
-        } else {
-            this.admins = new ArrayList<>(admins);
-        }
-
-        if (students == null) {
-            this.students = new ArrayList<>();
-        } else {
-            this.students = new ArrayList<>(students);
-        }
+        this.admins = getUserOrEmpty(admins);
+        this.students = getUserOrEmpty(students);
         this.groupId = groupId;
+    }
+
+    private ArrayList<SimpleUser> getUserOrEmpty(List<SimpleUser> admins) {
+        return ofNullable(admins).map(ArrayList::new).orElseGet(ArrayList::new);
     }
 
     @Override
