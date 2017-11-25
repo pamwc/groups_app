@@ -12,6 +12,7 @@ import dagger.Provides;
 import edu.groups.app.api.ApiService;
 import edu.groups.app.api.BasicAuthInterceptor;
 import edu.groups.app.api.GroupService;
+import edu.groups.app.api.NetworkAvailableInterceptor;
 import edu.groups.app.api.PostService;
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
@@ -37,14 +38,22 @@ public abstract class NetModule {
 
     @Provides
     @Singleton
+    static NetworkAvailableInterceptor provideNetworkAvailableInterceptor(Context context) {
+        return new NetworkAvailableInterceptor(context);
+    }
+
+    @Provides
+    @Singleton
     static Cache provideHttpCache(Context context) {
         return new Cache(context.getCacheDir(), 10 * MB);
     }
 
     @Provides
     @Singleton
-    static OkHttpClient provideOkHttpClient(BasicAuthInterceptor interceptor, Cache cache) {
+    static OkHttpClient provideOkHttpClient(BasicAuthInterceptor interceptor, Cache cache,
+                                            NetworkAvailableInterceptor networkAvailableInterceptor) {
         return new OkHttpClient.Builder()
+                .addInterceptor(networkAvailableInterceptor)
                 .addInterceptor(interceptor)
                 .cache(cache)
                 .build();
