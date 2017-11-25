@@ -87,11 +87,10 @@ public class UserViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void onRemoveClick(SimpleUser simpleUser, SuccessRemoveAction removeAction) {
-        final Disposable subscribe = apiService.removeUserFromGroup(groupId, simpleUser.getUsername())
+        apiService.removeUserFromGroup(groupId, simpleUser.getUsername())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(() -> removeAction.removeUser(simpleUser), onRemoveError());
-        subscribe.dispose();
     }
 
     @NonNull
