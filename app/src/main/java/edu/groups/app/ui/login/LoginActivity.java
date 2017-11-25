@@ -4,8 +4,6 @@ import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.google.firebase.messaging.FirebaseMessaging;
-
 import javax.inject.Inject;
 
 import butterknife.BindView;
@@ -33,8 +31,6 @@ public class LoginActivity extends DaggerAppCompatActivity implements LoginContr
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-
-        FirebaseMessaging.getInstance().subscribeToTopic("foo-bar");
     }
 
     @OnClick(R.id.login)

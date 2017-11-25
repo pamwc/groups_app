@@ -6,16 +6,21 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class SimpleGroupDto {
+import io.realm.RealmList;
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
+public class SimpleGroupDto extends RealmObject{
 
     @SerializedName("adminsUserNames")
     @Expose
-    private List<String> adminsUserNames = null;
+    private RealmList<String> adminsUserNames = null;
     @SerializedName("creationTime")
     @Expose
     private String creationTime;
     @SerializedName("id")
     @Expose
+    @PrimaryKey
     private Long id;
     @SerializedName("name")
     @Expose
@@ -26,7 +31,8 @@ public class SimpleGroupDto {
     }
 
     public void setAdminsUserNames(List<String> adminsUserNames) {
-        this.adminsUserNames = adminsUserNames;
+        this.adminsUserNames = new RealmList<>();
+        this.adminsUserNames.addAll(adminsUserNames);
     }
 
     public String getCreationTime() {

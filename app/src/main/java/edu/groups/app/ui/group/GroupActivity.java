@@ -9,6 +9,8 @@ import edu.groups.app.ui.shared.HostActivity;
 public class GroupActivity extends HostActivity implements GroupContract.View {
 
     public static final String GROUP_ID = "GROUP_ID";
+    public static final String POST_ID = "post.id";
+    public static final String COMMENT_ID = "comment.id";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

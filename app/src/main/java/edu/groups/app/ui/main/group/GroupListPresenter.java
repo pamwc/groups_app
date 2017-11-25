@@ -1,5 +1,9 @@
 package edu.groups.app.ui.main.group;
 
+import com.google.firebase.messaging.FirebaseMessaging;
+
+import org.apache.commons.collections4.CollectionUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +17,8 @@ import edu.groups.app.ui.main.group.adapter.GroupRowView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import io.realm.Realm;
+import io.realm.RealmResults;
 
 /**
  * Created by Kamil on 10/11/2017.
@@ -23,12 +29,14 @@ public class GroupListPresenter extends InnerPresenter<GroupListContract.View>
 
     private final GroupService groupService;
     private final List<SimpleGroupDto> groups;
+    private final Realm realm;
 
     @Inject
     GroupListPresenter(GroupListContract.View view, UserService userService,
-                       GroupService groupService) {
+                       GroupService groupService, Realm realm) {
         super(view, userService);
         this.groupService = groupService;
+        this.realm = realm;
         this.groups = new ArrayList<>();
     }
 
@@ -67,10 +75,44 @@ public class GroupListPresenter extends InnerPresenter<GroupListContract.View>
                 .subscribe(
                         groupList -> {
                             groups.clear();
+                            unSubscribeAll();
+                            groupList.forEach(this::subscribeTopic);
                             groups.addAll(groupList);
                             view.refresh();
+                            addToRealm(groupList);
                         }
                 );
         disposable.add(subscribe);
+    }
+
+    private void addToRealm(List<SimpleGroupDto> groupList) {
+        realm.beginTransaction();
+        realm.copyToRealm(groupList);
+        realm.commitTransaction();
+    }
+
+    private void unSubscribeAll() {
+        final RealmResults<SimpleGroupDto> groups = realm.where(SimpleGroupDto.class)
+                .findAll();
+        if (CollectionUtils.isNotEmpty(groups)) {
+            groups.forEach(this::unSubscribe);
+        }
+        realm.beginTransaction();
+        realm.delete(SimpleGroupDto.class);
+        realm.commitTransaction();
+    }
+
+    private void unSubscribe(SimpleGroupDto simpleGroupDto) {
+        FirebaseMessaging.getInstance().unsubscribeFromTopic(simpleGroupDto.getId().toString());
+    }
+
+    private void subscribeTopic(SimpleGroupDto simpleGroupDto) {
+        FirebaseMessaging.getInstance().subscribeToTopic(simpleGroupDto.getId().toString());
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        realm.close();
     }
 }
