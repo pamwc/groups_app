@@ -43,7 +43,12 @@ public class FirebaseNotificationMessagingService extends FirebaseMessagingServi
         super.onMessageReceived(remoteMessage);
         Notification notification = gson.fromJson(remoteMessage.getData().toString(), Notification.class);
         sendNotification(notification);
+        saveNotification(notification);
         Log.d(TAG, "Notification data payload: " + notification);
+    }
+
+    private void saveNotification(Notification notification) {
+
     }
 
     public void sendNotification(Notification notification) {

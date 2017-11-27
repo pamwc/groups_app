@@ -1,7 +1,11 @@
 package edu.groups.app.model;
 
+import java.util.UUID;
+
+import io.realm.RealmObject;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
@@ -9,13 +13,23 @@ import lombok.NoArgsConstructor;
  */
 
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
-public class Notification {
+public class Notification extends RealmObject {
     private String title;
-    private NotificationType notificationType;
+    private String notificationTypeValue;
     private String content;
     private Long groupId;
     private Long postId;
     private Long commentId;
+    private byte[] uuid;
+
+    public NotificationType getNotificationType() {
+        return NotificationType.valueOf(notificationTypeValue);
+    }
+
+    public void setNotificationType(NotificationType notificationType) {
+        notificationTypeValue = notificationType.name();
+    }
 }

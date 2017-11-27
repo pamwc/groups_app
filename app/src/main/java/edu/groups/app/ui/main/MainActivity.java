@@ -9,6 +9,7 @@ import butterknife.ButterKnife;
 import edu.groups.app.R;
 import edu.groups.app.ui.main.account.AccountFragment;
 import edu.groups.app.ui.main.group.GroupListFragment;
+import edu.groups.app.ui.main.notifications.NotificationListFragment;
 import edu.groups.app.ui.shared.HostActivity;
 
 /**
@@ -41,6 +42,9 @@ public class MainActivity extends HostActivity {
                 return true;
             case R.id.navigation_my_account:
                 replaceFragment(R.id.fragment_container, new AccountFragment());
+                return true;
+            case R.id.navigation_notifications:
+                replaceFragment(R.id.fragment_container, new NotificationListFragment());
                 return true;
             default:
                 return false;

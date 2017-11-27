@@ -9,6 +9,8 @@ import edu.groups.app.ui.group.user.UserFragment;
 import edu.groups.app.ui.group.user.UserFragmentModule;
 import edu.groups.app.ui.group.user.UserListFragment;
 import edu.groups.app.ui.group.user.UserListModule;
+import edu.groups.app.ui.main.notifications.NotificationListFragment;
+import edu.groups.app.ui.main.notifications.NotificationListFragmentModule;
 import edu.groups.app.ui.shared.HostActivity;
 import edu.groups.app.ui.shared.HostActivityModule;
 
@@ -29,6 +31,10 @@ public abstract class GroupActivityModule {
     @FragmentScope
     @ContributesAndroidInjector(modules = {UserListModule.class})
     abstract UserListFragment userListFragmentInjector();
+
+    @FragmentScope
+    @ContributesAndroidInjector(modules = {NotificationListFragmentModule.class})
+    abstract NotificationListFragment notificationFragmentInjector();
 
     @Binds
     @ActivityScope
