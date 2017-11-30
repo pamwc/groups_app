@@ -9,4 +9,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/join_group_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:src="@android:drawable/btn_star"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/create_group_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:src="@android:drawable/ic_input_add"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp" />
+
 </LinearLayout>

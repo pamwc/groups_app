@@ -19,12 +19,8 @@ public class LoginActivity extends DaggerAppCompatActivity implements LoginContr
     @Inject LoginContract.Presenter presenter;
 
     @BindView(R.id.text) TextView textView;
-
-    @BindView(R.id.login_input)
-    EditText login_input;
-
-    @BindView(R.id.password_input)
-    EditText password_input;
+    @BindView(R.id.login_input) EditText login_input;
+    @BindView(R.id.password_input) EditText password_input;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
