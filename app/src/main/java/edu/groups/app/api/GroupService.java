@@ -47,5 +47,8 @@ public interface GroupService {
     Completable leaveGroup(@Path("groupId") Long groupId);
 
     @POST("groups/{groupId}/resetJoinCode")
-    Completable resetJoinCode(@Path("groupId") Long groupId);
+    Observable<String> resetJoinCode(@Path("groupId") Long groupId);
+
+    @POST("/groups/{groupId}/remove/{userName}")
+    Completable removeUserFromGroup(@Path("groupId") Long groupId, @Path("userName") String userName);
 }

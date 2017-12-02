@@ -17,7 +17,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.groups.app.R;
-import edu.groups.app.api.ApiService;
+import edu.groups.app.api.GroupService;
 import edu.groups.app.model.SimpleUser;
 import edu.groups.app.ui.BaseViewFragment;
 
@@ -37,7 +37,7 @@ public class UserListFragment extends BaseViewFragment<UserListContract.Presente
     RecyclerView recyclerView;
 
     @Inject
-    ApiService apiService;
+    GroupService groupService;
 
     public UserListFragment() {
     }
@@ -57,7 +57,7 @@ public class UserListFragment extends BaseViewFragment<UserListContract.Presente
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(),
                 layoutManager.getOrientation());
         recyclerView.addItemDecoration(dividerItemDecoration);
-        userAdapter = new UserAdapter(users, apiService, presenter.getCurrentUser(), groupId);
+        userAdapter = new UserAdapter(users, groupService, presenter.getCurrentUser(), groupId);
         recyclerView.setAdapter(userAdapter);
 
         return view;
