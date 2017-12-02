@@ -10,12 +10,16 @@ import java.util.List;
 import javax.inject.Inject;
 
 import edu.groups.app.api.GroupService;
+import edu.groups.app.model.UserRole;
+import edu.groups.app.model.group.CreateGroupRequestDto;
+import edu.groups.app.model.group.JoinGroupRequestDto;
 import edu.groups.app.model.group.SimpleGroupDto;
 import edu.groups.app.service.UserService;
 import edu.groups.app.ui.InnerPresenter;
 import edu.groups.app.ui.main.group.adapter.GroupRowView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -43,7 +47,17 @@ public class GroupListPresenter extends InnerPresenter<GroupListContract.View>
     @Override
     public void onResume() {
         super.onResume();
+        
         fetchMyGroups();
+        if (getCurrentUser().hasRole(UserRole.ADMIN)) {
+            view.showCreateGroupFab();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        realm.close();
     }
 
     @Override
@@ -68,6 +82,32 @@ public class GroupListPresenter extends InnerPresenter<GroupListContract.View>
         return groups.size();
     }
 
+    @Override
+    public void joinGroup(String joinCode) {
+        Disposable subscribe = groupService
+                .joinCurrentUserToGroup(new JoinGroupRequestDto(joinCode))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        group -> view.openGroupActivity(group.getId()),
+                        onError()
+                );
+        disposable.add(subscribe);
+    }
+
+    @Override
+    public void createGroup(String groupName) {
+        Disposable subscribe = groupService
+                .createGroup(new CreateGroupRequestDto(groupName))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        group -> view.openGroupActivity(group.getId()),
+                        onError()
+                );
+        disposable.add(subscribe);
+    }
+
     private void fetchMyGroups() {
         Disposable subscribe = groupService.getCurrentUserSimpleGroup()
                 .subscribeOn(Schedulers.io())
@@ -80,9 +120,14 @@ public class GroupListPresenter extends InnerPresenter<GroupListContract.View>
                             groups.addAll(groupList);
                             view.refresh();
                             addToRealm(groupList);
-                        }
+                        },
+                        onError()
                 );
         disposable.add(subscribe);
+    }
+
+    private Consumer<Throwable> onError() {
+        return throwable -> view.showMessage(throwable.getMessage());
     }
 
     private void addToRealm(List<SimpleGroupDto> groupList) {
@@ -108,11 +153,5 @@ public class GroupListPresenter extends InnerPresenter<GroupListContract.View>
 
     private void subscribeTopic(SimpleGroupDto simpleGroupDto) {
         FirebaseMessaging.getInstance().subscribeToTopic(simpleGroupDto.getId().toString());
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        realm.close();
     }
 }

@@ -33,4 +33,8 @@ public class User extends RealmObject {
         this.roles = new RealmList<>();
         this.roles.addAll(roles);
     }
+
+    public boolean hasRole(UserRole role) {
+        return roles.contains(role.name);
+    }
 }

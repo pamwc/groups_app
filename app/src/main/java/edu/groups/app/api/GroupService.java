@@ -2,9 +2,10 @@ package edu.groups.app.api;
 
 import java.util.List;
 
+import edu.groups.app.model.group.CreateGroupRequestDto;
 import edu.groups.app.model.group.CreateGroupResponseDto;
 import edu.groups.app.model.group.GroupDto;
-import edu.groups.app.model.group.JoinGroupResponseDto;
+import edu.groups.app.model.group.JoinGroupRequestDto;
 import edu.groups.app.model.group.SimpleGroupDto;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
@@ -22,10 +23,10 @@ import retrofit2.http.Path;
 public interface GroupService {
 
     @POST("groups")
-    Observable<CreateGroupResponseDto> createGroup(@Body String groupName);
+    Observable<CreateGroupResponseDto> createGroup(@Body CreateGroupRequestDto request);
 
     @POST("groups/join")
-    Observable<JoinGroupResponseDto> joinCurrentUserToGroup(@Body String code);
+    Observable<SimpleGroupDto> joinCurrentUserToGroup(@Body JoinGroupRequestDto request);
 
     @GET("groups/my")
     Observable<List<SimpleGroupDto>> getCurrentUserSimpleGroup();
