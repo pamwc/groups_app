@@ -23,7 +23,6 @@ import edu.groups.app.model.SimpleUser;
 import edu.groups.app.model.User;
 import edu.groups.app.model.UserRole;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
@@ -63,7 +62,7 @@ public class UserViewHolder extends RecyclerView.ViewHolder {
         this.groupId = groupId;
         this.context = itemView.getContext();
         this.currentUser = currentUser;
-        this.removeButtonEnabled = currentUser.getRoles().contains(UserRole.ADMIN.name);
+        this.removeButtonEnabled = currentUser.hasRole(UserRole.ADMIN);
     }
 
     public void bind(final SimpleUser simpleUser, SuccessRemoveAction removeAction) {

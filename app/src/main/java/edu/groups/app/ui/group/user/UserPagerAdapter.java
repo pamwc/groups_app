@@ -7,10 +7,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import edu.groups.app.model.SimpleUser;
-import java8.util.Optional;
 
 import static java8.util.Optional.ofNullable;
 

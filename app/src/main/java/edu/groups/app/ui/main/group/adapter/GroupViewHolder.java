@@ -2,6 +2,7 @@ package edu.groups.app.ui.main.group.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import butterknife.BindView;
@@ -14,6 +15,7 @@ import edu.groups.app.R;
 
 public class GroupViewHolder extends RecyclerView.ViewHolder implements GroupRowView {
 
+    @BindView(R.id.group_item) ViewGroup viewGroup;
     @BindView(R.id.group_name) TextView name;
 
     public GroupViewHolder(View itemView) {
@@ -27,6 +29,6 @@ public class GroupViewHolder extends RecyclerView.ViewHolder implements GroupRow
     }
 
     public void setOnClick(View.OnClickListener listener) {
-        name.setOnClickListener(listener);
+        viewGroup.setOnClickListener(listener);
     }
 }

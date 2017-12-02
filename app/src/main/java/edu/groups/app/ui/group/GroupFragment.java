@@ -10,8 +10,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -24,7 +22,6 @@ import edu.groups.app.ui.group.post.AddPostDialog;
 import edu.groups.app.ui.group.post.PostAdapter;
 import edu.groups.app.ui.group.user.UserFragment;
 import edu.groups.app.ui.group.user.UserPagerAdapter;
-import edu.groups.app.ui.shared.HostActivity;
 
 
 public class GroupFragment extends BaseViewFragment<GroupFragmentContract.Presenter> implements GroupFragmentContract.View {
