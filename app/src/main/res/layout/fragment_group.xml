@@ -43,4 +43,15 @@
         android:text="@string/show_members"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/leaveGroup"
+        android:text="@string/leave_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/joinCode"
+        android:text="@string/show_join_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </LinearLayout>

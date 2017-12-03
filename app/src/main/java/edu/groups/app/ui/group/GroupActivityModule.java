@@ -39,4 +39,8 @@ public abstract class GroupActivityModule {
     @Binds
     @ActivityScope
     abstract HostActivity bindHostActivity(GroupActivity mainActivity);
+
+    @Binds
+    @ActivityScope
+    abstract GroupContract.View bindViewActivity(GroupActivity mainActivity);
 }

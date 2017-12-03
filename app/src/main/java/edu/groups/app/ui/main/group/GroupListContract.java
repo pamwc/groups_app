@@ -11,12 +11,16 @@ public interface GroupListContract {
 
     interface View extends MvpContract.View {
         void refresh();
+        void showCreateGroupFab();
+        void showMessage(String message);
         void openGroupActivity(Long groupId);
     }
 
     interface Presenter extends MvpContract.Presenter {
         void onBindViewHolder(GroupRowView rowView, int position);
         void onClickGroup(int position);
+        void joinGroup(String joinCode);
+        void createGroup(String groupName);
         Long getGroupId(int position);
         int getGroupRowsCount();
     }

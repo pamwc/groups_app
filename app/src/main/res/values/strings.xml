@@ -13,6 +13,7 @@
     <string name="students">Students</string>
 
     <!-- TODO: Remove or change this placeholder text -->
+    <string name="icon">icon</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_group">GroupActivity</string>
     <string name="action_settings">Settings</string>
@@ -20,4 +21,18 @@
     <string name="group">Group</string>
     <string name="post">Post</string>
     <string name="comment">Comment</string>
+
+    <!-- Create and join group dialog -->
+    <string name="create_group_title">Enter group name</string>
+    <string name="join_group_title">Enter join code</string>
+    <string name="dialog_group_pos_btn">Submit</string>
+    <string name="dialog_group_neg_btn">Cancel</string>
+    <string name="leave_group">Leave group</string>
+    <string name="show_join_code">Show join code</string>
+    <string name="join_code">Join code</string>
+    <string name="reset">Reset</string>
+    <string name="cancel">Cancel</string>
+    <string name="code">code</string>
+    <string name="leave_group_message">Are you sure you want to leave the group?</string>
+    <string name="leave">Leave</string>
 </resources>

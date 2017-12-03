@@ -61,9 +61,8 @@ public class LoginPresenter extends BasePresenter<LoginContract.View>
                                 view.openMainActivity();
                             });
                         },
-                        error -> {
-                            view.showMessage("Invalid username or password");
-                        }
+                        error ->
+                            view.showMessage("Invalid username or password")
                 );
         disposable.add(subscribe);
     }
