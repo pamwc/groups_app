@@ -1,10 +1,11 @@
 package edu.groups.app.repository;
 
-import java.util.List;
 
 import edu.groups.app.model.Notification;
+import edu.groups.app.model.NotificationDto;
+import io.reactivex.Flowable;
 import io.reactivex.disposables.Disposable;
-import io.realm.Realm;
+import io.realm.RealmResults;
 
 import static io.realm.Realm.Transaction.OnSuccess;
 
@@ -13,8 +14,8 @@ import static io.realm.Realm.Transaction.OnSuccess;
  */
 
 public interface NotificationRealmRepository extends Disposable {
-    void saveAsync(Notification notification, OnSuccess onSuccess);
-    void removeAsync(Notification notification, OnSuccess onSuccess);
-
+    void saveAsync(NotificationDto notification, OnSuccess onSuccess);
+    void removeAsync(NotificationDto notification, OnSuccess onSuccess);
+    Flowable<RealmResults<NotificationDto>> getAll();
     void removeAll(OnSuccess onSuccess);
 }

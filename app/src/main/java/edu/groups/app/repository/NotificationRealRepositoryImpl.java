@@ -1,11 +1,11 @@
 package edu.groups.app.repository;
 
 import java.nio.ByteBuffer;
-import java.util.List;
 import java.util.UUID;
 
-import edu.groups.app.model.Notification;
+import edu.groups.app.model.NotificationDto;
 import io.realm.Realm;
+import io.realm.RealmResults;
 
 /**
  * Created by Piotr Borczyk on 26.11.2017.
@@ -20,7 +20,7 @@ public class NotificationRealRepositoryImpl implements NotificationRealmReposito
     }
 
     @Override
-    public void saveAsync(Notification notification, Realm.Transaction.OnSuccess onSuccess) {
+    public void saveAsync(NotificationDto notification, Realm.Transaction.OnSuccess onSuccess) {
         UUID uuid = UUID.randomUUID();
         ByteBuffer byteBuffer = ByteBuffer.wrap(new byte[16]);
         byteBuffer.putLong(uuid.getMostSignificantBits());
@@ -30,14 +30,19 @@ public class NotificationRealRepositoryImpl implements NotificationRealmReposito
     }
 
     @Override
-    public void removeAsync(Notification notification, Realm.Transaction.OnSuccess onSuccess) {
-        realm.executeTransactionAsync(realm1 -> realm1.where(Notification.class).equalTo("uuid", notification.getUuid())
+    public void removeAsync(NotificationDto notification, Realm.Transaction.OnSuccess onSuccess) {
+        realm.executeTransactionAsync(realm1 -> realm1.where(NotificationDto.class).equalTo("uuid", notification.getUuid())
                 .findAll().deleteAllFromRealm());
     }
 
     @Override
+    public io.reactivex.Flowable<RealmResults<NotificationDto>> getAll() {
+        return realm.where(NotificationDto.class).findAllAsync().asFlowable().filter(RealmResults::isLoaded);
+    }
+
+    @Override
     public void removeAll(Realm.Transaction.OnSuccess onSuccess) {
-        realm.executeTransactionAsync(realm1 -> realm1.delete(Notification.class), onSuccess);
+        realm.executeTransactionAsync(realm1 -> realm1.delete(NotificationDto.class), onSuccess);
     }
 
     @Override

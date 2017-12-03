@@ -16,20 +16,11 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
-public class Notification extends RealmObject {
+public class Notification {
     private String title;
-    private String notificationTypeValue;
+    private NotificationType notificationType;
     private String content;
     private Long groupId;
     private Long postId;
     private Long commentId;
-    private byte[] uuid;
-
-    public NotificationType getNotificationType() {
-        return NotificationType.valueOf(notificationTypeValue);
-    }
-
-    public void setNotificationType(NotificationType notificationType) {
-        notificationTypeValue = notificationType.name();
-    }
 }
