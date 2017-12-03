@@ -88,7 +88,7 @@ public class GroupFragment extends BaseViewFragment<GroupFragmentContract.Presen
             groupId = getArguments().getLong(GROUP_ID);
         }
         postList.setLayoutManager(new LinearLayoutManager(getActivity()));
-        view.setVisibility(presenter.currentUserRole().contains(UserRole.ADMIN.name) ? VISIBLE : GONE);
+        joinCode.setVisibility(presenter.currentUserRole().contains(UserRole.ADMIN.name) ? VISIBLE : GONE);
         return view;
     }
 
