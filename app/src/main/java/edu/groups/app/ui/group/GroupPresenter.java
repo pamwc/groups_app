@@ -6,8 +6,10 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import edu.groups.app.api.BasicAuthInterceptor;
 import edu.groups.app.api.GroupService;
 import edu.groups.app.api.PostService;
+import edu.groups.app.model.BasicCredentials;
 import edu.groups.app.model.group.GroupDto;
 import edu.groups.app.model.group.Post;
 import edu.groups.app.model.post.NewPostDto;
@@ -33,23 +35,32 @@ public class GroupPresenter extends InnerPresenter<GroupFragmentContract.View> i
     private GroupDto group;
     private long groupId;
     private UserRealmRepository userRealmRepository;
+    private final BasicAuthInterceptor authInterceptor;
 
     @Inject
     protected GroupPresenter(GroupFragmentContract.View view, UserService userService, GroupService groupService,
-                             PostService postService, GroupContract.View groupView, UserRealmRepository userRealmRepository) {
+                             PostService postService, GroupContract.View groupView, UserRealmRepository userRealmRepository, BasicAuthInterceptor authInterceptor) {
         super(view, userService);
         this.groupService = groupService;
         this.postService = postService;
         this.groupView = groupView;
         this.userRealmRepository = userRealmRepository;
+        this.authInterceptor = authInterceptor;
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        userRealmRepository.get().ifPresent(user ->
+                login(user.getCredentials())
+        );
         bindViews();
         Disposable groupSubscribe = getPostsFromApi();
         disposable.add(groupSubscribe);
+    }
+
+    private void login(BasicCredentials credentials) {
+        authInterceptor.storeCredentials(credentials);
     }
 
     @NonNull
