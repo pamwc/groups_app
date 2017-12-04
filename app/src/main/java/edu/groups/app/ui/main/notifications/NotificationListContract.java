@@ -20,7 +20,6 @@ public interface NotificationListContract {
     interface Presenter extends MvpContract.Presenter {
         int getNotificationCount();
         NotificationDto getNotification(int position);
-        void deleteNotification(int position);
     }
 
 }
