@@ -20,7 +20,6 @@ public class Notification {
     private String title;
     private NotificationType notificationType;
     private String content;
-    private String author;
     private Long groupId;
     private Long postId;
     private Long commentId;
