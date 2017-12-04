@@ -2,6 +2,7 @@ package edu.groups.app.ui.group;
 
 import java.util.List;
 
+import edu.groups.app.model.User;
 import edu.groups.app.model.group.Post;
 import edu.groups.app.model.post.NewPostDto;
 import edu.groups.app.ui.MvpContract;
@@ -29,6 +30,7 @@ public interface GroupFragmentContract {
     }
 
     interface Presenter extends MvpContract.Presenter {
+        User getCurrentUser();
         void addPost(NewPostDto newPostDto);
 
         void deletePost(int postId);

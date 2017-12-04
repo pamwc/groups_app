@@ -76,4 +76,9 @@ public class PostViewHolder extends RecyclerView.ViewHolder implements PostContr
         commentButton.setEnabled(commentsEnabled);
         commentButton.setClickable(commentsEnabled);
     }
+
+    @Override
+    public void showDeleteButton() {
+        deleteButton.setVisibility(View.VISIBLE);
+    }
 }
