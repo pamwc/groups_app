@@ -4,6 +4,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
@@ -13,10 +14,17 @@ import com.google.gson.Gson;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
+import javax.inject.Inject;
+
+import dagger.android.AndroidInjection;
 import edu.groups.app.R;
 import edu.groups.app.model.Notification;
 import edu.groups.app.model.NotificationType;
+import edu.groups.app.repository.UserRealmRepository;
+import edu.groups.app.repository.UserRealmRepositoryImpl;
+import edu.groups.app.service.UserService;
 import edu.groups.app.ui.group.GroupActivity;
+import io.realm.Realm;
 
 import static android.app.Notification.DEFAULT_SOUND;
 import static android.app.Notification.DEFAULT_VIBRATE;
@@ -34,8 +42,16 @@ public class FirebaseNotificationMessagingService extends FirebaseMessagingServi
     private Gson gson;
     private final static AtomicInteger c = new AtomicInteger(0);
 
+    private UserRealmRepository userRealmRepository;
+
     public FirebaseNotificationMessagingService() {
         this.gson = new Gson();
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+//        userRealmRepository = new UserRealmRepositoryImpl(Realm.getDefaultInstance());
     }
 
     @Override
@@ -43,15 +59,11 @@ public class FirebaseNotificationMessagingService extends FirebaseMessagingServi
         super.onMessageReceived(remoteMessage);
         Notification notification = gson.fromJson(remoteMessage.getData().toString(), Notification.class);
         sendNotification(notification);
-        saveNotification(notification);
         Log.d(TAG, "Notification data payload: " + notification);
     }
 
-    private void saveNotification(Notification notification) {
-
-    }
-
     public void sendNotification(Notification notification) {
+        if (isCurrentUserTheSender(notification)) return;
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
                         .setTicker("notification")
@@ -66,6 +78,15 @@ public class FirebaseNotificationMessagingService extends FirebaseMessagingServi
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(c.get(), mBuilder.build());
+    }
+
+    private boolean isCurrentUserTheSender(Notification notification) {
+        SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("dd", Context.MODE_PRIVATE);
+        String  username = sharedPref.getString(getString(R.string.username_login), "");
+        if (username.equals(notification.getAuthor())) {
+            return true;
+        }
+        return false;
     }
 
     private PendingIntent getIntent(Notification notification) {
@@ -90,4 +111,6 @@ public class FirebaseNotificationMessagingService extends FirebaseMessagingServi
     public static int getNextId() {
         return c.incrementAndGet();
     }
+
+
 }

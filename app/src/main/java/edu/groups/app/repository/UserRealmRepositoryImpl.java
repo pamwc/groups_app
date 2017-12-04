@@ -22,6 +22,9 @@ public class UserRealmRepositoryImpl implements UserRealmRepository {
         User user = realm.where(User.class)
                 .equalTo("id", User.ID)
                 .findFirst();
+        if (user != null) {
+            user = realm.copyFromRealm(user);
+        }
         return Optional.ofNullable(user);
     }
 
