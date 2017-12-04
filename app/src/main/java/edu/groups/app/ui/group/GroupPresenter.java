@@ -11,6 +11,7 @@ import edu.groups.app.api.PostService;
 import edu.groups.app.model.group.GroupDto;
 import edu.groups.app.model.group.Post;
 import edu.groups.app.model.post.NewPostDto;
+import edu.groups.app.repository.UserRealmRepository;
 import edu.groups.app.service.UserService;
 import edu.groups.app.ui.InnerPresenter;
 import edu.groups.app.ui.group.post.Comment;
@@ -31,14 +32,16 @@ public class GroupPresenter extends InnerPresenter<GroupFragmentContract.View> i
     private GroupContract.View groupView;
     private GroupDto group;
     private long groupId;
+    private UserRealmRepository userRealmRepository;
 
     @Inject
     protected GroupPresenter(GroupFragmentContract.View view, UserService userService, GroupService groupService,
-                             PostService postService, GroupContract.View groupView) {
+                             PostService postService, GroupContract.View groupView, UserRealmRepository userRealmRepository) {
         super(view, userService);
         this.groupService = groupService;
         this.postService = postService;
         this.groupView = groupView;
+        this.userRealmRepository = userRealmRepository;
     }
 
     @Override
@@ -154,7 +157,7 @@ public class GroupPresenter extends InnerPresenter<GroupFragmentContract.View> i
 
     @Override
     public List<String> currentUserRole() {
-        return getCurrentUser().getRoles();
+        return userRealmRepository.get().get().getRoles();
     }
 
     @Override
