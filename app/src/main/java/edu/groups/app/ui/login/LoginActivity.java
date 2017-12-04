@@ -1,5 +1,7 @@
 package edu.groups.app.ui.login;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -12,6 +14,7 @@ import butterknife.OnClick;
 import dagger.android.support.DaggerAppCompatActivity;
 import edu.groups.app.R;
 import edu.groups.app.model.BasicCredentials;
+import edu.groups.app.model.User;
 import edu.groups.app.navigation.Navigator;
 
 public class LoginActivity extends DaggerAppCompatActivity implements LoginContract.View {
@@ -56,5 +59,13 @@ public class LoginActivity extends DaggerAppCompatActivity implements LoginContr
     @Override
     public void openMainActivity() {
         Navigator.openMainActivity(this);
+    }
+
+    @Override
+    public void saveInSharedPreferences(User user) {
+        SharedPreferences sharedPref = this.getSharedPreferences("dd", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString(getString(R.string.username_login), user.getCredentials().getUsername());
+        editor.apply();
     }
 }

@@ -1,10 +1,15 @@
 package edu.groups.app.ui.login;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import javax.inject.Inject;
 
+import edu.groups.app.R;
 import edu.groups.app.api.ApiService;
 import edu.groups.app.api.BasicAuthInterceptor;
 import edu.groups.app.model.BasicCredentials;
+import edu.groups.app.model.User;
 import edu.groups.app.repository.UserRealmRepository;
 import edu.groups.app.service.UserService;
 import edu.groups.app.ui.BasePresenter;
@@ -59,6 +64,7 @@ public class LoginPresenter extends BasePresenter<LoginContract.View>
                             userRealmRepository.saveAsync(user, () -> {
                                 userService.save(user);
                                 view.openMainActivity();
+                                view.saveInSharedPreferences(user);
                             });
                         },
                         error ->

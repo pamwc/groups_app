@@ -1,6 +1,7 @@
 package edu.groups.app.ui.login;
 
 import edu.groups.app.model.BasicCredentials;
+import edu.groups.app.model.User;
 import edu.groups.app.ui.MvpContract;
 
 /**
@@ -12,6 +13,8 @@ public interface LoginContract {
     interface View extends MvpContract.View {
         void showMessage(String message);
         void openMainActivity();
+
+        void saveInSharedPreferences(User user);
     }
 
     interface Presenter extends MvpContract.Presenter {

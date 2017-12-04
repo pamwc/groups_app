@@ -4,7 +4,12 @@ import android.support.annotation.NonNull;
 
 import java.io.IOException;
 
+import javax.inject.Inject;
+
 import edu.groups.app.model.BasicCredentials;
+import edu.groups.app.model.User;
+import edu.groups.app.repository.UserRealmRepository;
+import io.realm.Realm;
 import okhttp3.Credentials;
 import okhttp3.Interceptor;
 import okhttp3.Request;
@@ -16,6 +21,10 @@ import okhttp3.Response;
  */
 
 public class BasicAuthInterceptor implements Interceptor {
+
+
+    @Inject
+    UserRealmRepository userRealmRepository;
 
     private static volatile String credentials;
 
@@ -32,6 +41,10 @@ public class BasicAuthInterceptor implements Interceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
+        if (credentials == null) {
+            User user = userRealmRepository.get().get();
+            credentials = Credentials.basic(user.getCredentials().getUsername(), user.getCredentials().getPassword());
+        }
         if (credentials != null) {
             request = request.newBuilder()
                     .addHeader("Authorization", credentials)
