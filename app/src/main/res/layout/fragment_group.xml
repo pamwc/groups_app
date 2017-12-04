@@ -3,8 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="edu.groups.app.ui.group.GroupFragment"
-    android:orientation="vertical"
-    tools:showIn="@layout/activity_group">
+    android:orientation="vertical">
+    //tools:showIn="@layout/activity_group">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -12,24 +12,59 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:gravity="center">
+        android:gravity="center"
+        android:background="@android:color/holo_blue_light">
         <TextView
             android:id="@+id/group_name_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:textColor="@android:color/white"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="@android:color/holo_blue_dark">
         <TextView
             android:id="@+id/group_admin_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center" />
+            android:gravity="center"
+            android:textColor="@android:color/white"/>
     </LinearLayout>
 
-    <Button
-        android:id="@+id/add_post_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="ADD POST"/>
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/add_post_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/holo_green_light"
+            android:drawableRight="@android:drawable/ic_menu_add"
+            android:text="Add post"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/members_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/holo_blue_light"
+            android:drawableRight="@android:drawable/ic_menu_view"
+            android:text="@string/show_members"
+            android:textColor="@android:color/white" />
+
+    </RelativeLayout>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/post_list"
         android:layout_weight="1"
@@ -37,10 +72,4 @@
         android:layout_height="wrap_content">
 
     </android.support.v7.widget.RecyclerView>
-
-    <Button
-        android:id="@+id/members_button"
-        android:text="@string/show_members"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 </LinearLayout>
