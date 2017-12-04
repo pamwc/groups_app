@@ -8,6 +8,7 @@ import javax.inject.Inject;
 
 import edu.groups.app.api.GroupService;
 import edu.groups.app.api.PostService;
+import edu.groups.app.model.User;
 import edu.groups.app.model.group.GroupDto;
 import edu.groups.app.model.group.Post;
 import edu.groups.app.model.post.NewPostDto;
@@ -35,7 +36,7 @@ public class GroupPresenter extends InnerPresenter<GroupFragmentContract.View> i
     private UserRealmRepository userRealmRepository;
 
     @Inject
-    protected GroupPresenter(GroupFragmentContract.View view, UserService userService, GroupService groupService,
+    GroupPresenter(GroupFragmentContract.View view, UserService userService, GroupService groupService,
                              PostService postService, GroupContract.View groupView, UserRealmRepository userRealmRepository) {
         super(view, userService);
         this.groupService = groupService;
@@ -47,9 +48,7 @@ public class GroupPresenter extends InnerPresenter<GroupFragmentContract.View> i
     @Override
     public void onResume() {
         super.onResume();
-        bindViews();
-        Disposable groupSubscribe = getPostsFromApi();
-        disposable.add(groupSubscribe);
+        disposable.add(getPostsFromApi());
     }
 
     @NonNull
@@ -64,13 +63,14 @@ public class GroupPresenter extends InnerPresenter<GroupFragmentContract.View> i
                     });
     }
 
+    @Override
+    public User getCurrentUser() {
+        return super.getCurrentUser();
+    }
+
     private void setPostAdapter() {
         PostAdapter adapter = new PostAdapter(this);
         view.setAdapter(adapter);
-    }
-
-    private void bindViews() {
-
     }
 
     private void initializeLabels(GroupDto group) {

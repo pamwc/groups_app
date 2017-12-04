@@ -13,6 +13,7 @@ public interface PostContract {
         void setOnDeleteButtonClick(android.view.View.OnClickListener onClickListener);
         void setOnCommentButtonClick(android.view.View.OnClickListener onClickListener);
         void setCommentsEnabled(boolean commentsEnabled);
+        void showDeleteButton();
     }
 
     public interface Presenter {

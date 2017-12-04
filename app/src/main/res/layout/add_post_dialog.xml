@@ -1,39 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background4"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:text="Tytuł: "
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp">
 
         <EditText
             android:id="@+id/post_title_input"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:lines="1"/>
+            android:drawableLeft="@drawable/icon_title"
+            android:hint="Title"
+            android:textColor="#fff"
+            android:singleLine="true" />
     </LinearLayout>
 
-   <EditText
-       android:id="@+id/post_content_input"
-       android:lines="4"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content" />
+    <EditText
+        android:id="@+id/post_content_input"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#fff"
+        android:hint="Content"
+        android:lines="4" />
 
     <CheckBox
         android:id="@+id/comment_checkbox"
-        android:text="Komentarze"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textColor="#fff"
+        android:text="Comments" />
 
     <Button
         android:id="@+id/ok_button"
-        android:text="OK"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:background="@android:color/holo_blue_light"
+        android:text="OK"
+        android:textColor="#fff"
+        android:textSize="15sp" />
 </LinearLayout>
