@@ -16,6 +16,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion "26.0.2"
     defaultConfig {
+        multiDexEnabled true
         applicationId "edu.groups.app"
         minSdkVersion 19
         targetSdkVersion 25
@@ -32,6 +33,22 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    dexOptions {
+        preDexLibraries = false
+    }
+}
+
+afterEvaluate {
+    tasks.matching {
+        it.name.startsWith('dex')
+    }.each { dx ->
+        if (dx.additionalParameters == null) {
+            dx.additionalParameters = []
+        }
+        dx.additionalParameters += '--multi-dex'
+        dx.additionalParameters += "--main-dex-list=$projectDir/multidex.keep".toString()
     }
 }
 
@@ -91,7 +108,7 @@ dependencies {
     //Apache commons
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.7'
     compile group: 'org.apache.commons', name: 'commons-collections4', version: '4.1'
-
+    compile 'com.android.support:multidex:1.0.2'
 
 
     // Testing

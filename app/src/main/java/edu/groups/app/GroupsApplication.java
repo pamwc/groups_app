@@ -1,5 +1,8 @@
 package edu.groups.app;
 
+import android.content.Context;
+import android.support.multidex.MultiDex;
+
 import dagger.android.AndroidInjector;
 import dagger.android.DaggerApplication;
 import edu.groups.app.di.DaggerAppComponent;
@@ -32,5 +35,12 @@ public class GroupsApplication extends DaggerApplication {
                     .name(REALM_FILE)
                     .build();
         Realm.setDefaultConfiguration(realmConfiguration);
+    }
+
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
     }
 }
