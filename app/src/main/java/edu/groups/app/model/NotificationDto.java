@@ -1,56 +1,87 @@
+
 package edu.groups.app.model;
 
-import java.nio.ByteBuffer;
-import java.util.UUID;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-import io.realm.RealmObject;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+public class NotificationDto {
 
-/**
- * Created by Dawid Świnoga on 25.11.2017.
- */
-
-@Data
-@EqualsAndHashCode(callSuper = false)
-@NoArgsConstructor
-@AllArgsConstructor
-public class NotificationDto extends RealmObject {
-    private String title;
-    private String notificationTypeValue;
+    @SerializedName("author")
+    @Expose
+    private String author;
+    @SerializedName("commentId")
+    @Expose
+    private Integer commentId;
+    @SerializedName("content")
+    @Expose
     private String content;
-    private Long groupId;
-    private Long postId;
-    private Long commentId;
-    private byte[] uuid;
+    @SerializedName("groupId")
+    @Expose
+    private Integer groupId;
+    @SerializedName("notificationType")
+    @Expose
+    private NotificationType notificationType;
+    @SerializedName("postId")
+    @Expose
+    private Integer postId;
+    @SerializedName("title")
+    @Expose
+    private String title;
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public Integer getCommentId() {
+        return commentId;
+    }
+
+    public void setCommentId(Integer commentId) {
+        this.commentId = commentId;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public Integer getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(Integer groupId) {
+        this.groupId = groupId;
+    }
 
     public NotificationType getNotificationType() {
-        return NotificationType.valueOf(notificationTypeValue);
+        return notificationType;
     }
 
     public void setNotificationType(NotificationType notificationType) {
-        notificationTypeValue = notificationType.name();
+        this.notificationType = notificationType;
     }
 
-    public static NotificationDto getDto(Notification notification) {
-        NotificationDto dto = new NotificationDto();
-        dto.setCommentId(notification.getCommentId());
-        dto.setContent(notification.getContent());
-        dto.setGroupId(notification.getGroupId());
-        dto.setNotificationType(notification.getNotificationType());
-        dto.setTitle(notification.getTitle());
-        dto.setPostId(notification.getPostId());
-        dto.setUuid(prepareUUID());
-        return dto;
+    public Integer getPostId() {
+        return postId;
     }
 
-    private static byte[] prepareUUID() {
-        ByteBuffer byteBuffer = ByteBuffer.wrap(new byte[16]);
-        UUID uuid = UUID.randomUUID();
-        byteBuffer.putLong(uuid.getMostSignificantBits());
-        byteBuffer.putLong(uuid.getLeastSignificantBits());
-        return byteBuffer.array();
+    public void setPostId(Integer postId) {
+        this.postId = postId;
     }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
 }
