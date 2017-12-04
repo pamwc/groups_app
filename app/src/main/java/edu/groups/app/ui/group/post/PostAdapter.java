@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import javax.inject.Inject;
 
 import edu.groups.app.R;
+import edu.groups.app.model.User;
+import edu.groups.app.model.UserRole;
 import edu.groups.app.model.group.Post;
 import edu.groups.app.ui.group.GroupFragmentContract;
 
@@ -17,9 +19,12 @@ import edu.groups.app.ui.group.GroupFragmentContract;
 
 public class PostAdapter extends RecyclerView.Adapter<PostViewHolder> {
 
+    private User currentUser;
+
     @Inject
     public PostAdapter(GroupFragmentContract.Presenter groupPresenter) {
         this.groupPresenter = groupPresenter;
+        this.currentUser = groupPresenter.getCurrentUser();
         setHasStableIds(true);
     }
 
@@ -39,10 +44,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostViewHolder> {
         holder.setCreationDate(post.getCreationTime());
         holder.setContent(post.getContent());
         holder.setCommentsEnabled(post.getCommentEnabled());
-        holder.setOnDeleteButtonClick(v -> {
-            groupPresenter.deletePost(position);
-        });
         holder.setOnCommentButtonClick(v -> groupPresenter.commentPost(position, new Comment()));
+        if (currentUser.hasRole(UserRole.ADMIN)) {
+            holder.showDeleteButton();
+            holder.setOnDeleteButtonClick(v ->
+                    groupPresenter.deletePost(position)
+            );
+        }
     }
 
     @Override

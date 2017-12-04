@@ -86,14 +86,13 @@
             android:background="@android:color/holo_red_light"
             android:drawableRight="@android:drawable/ic_menu_delete"
             android:text="Delete"
-            android:textColor="#fff" />
+            android:textColor="#fff"
+            android:visibility="invisible" />
 
     </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/comment_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    </android.support.v7.widget.RecyclerView>
+        android:layout_height="wrap_content" />
 </LinearLayout>
