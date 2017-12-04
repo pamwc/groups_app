@@ -24,4 +24,5 @@ public class Notification {
     private Long groupId;
     private Long postId;
     private Long commentId;
+    private String author;
 }

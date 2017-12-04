@@ -5,9 +5,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import edu.groups.app.model.Notification;
 import edu.groups.app.model.NotificationDto;
-import edu.groups.app.repository.NotificationRealmRepository;
 import edu.groups.app.service.UserService;
 import edu.groups.app.ui.InnerPresenter;
 import edu.groups.app.ui.main.notifications.adapter.NotificationAdapter;
@@ -19,24 +17,18 @@ import edu.groups.app.ui.main.notifications.adapter.NotificationAdapter;
 public class NotificationListPresenter extends InnerPresenter<NotificationListContract.View> implements NotificationListContract.Presenter {
 
     private UserService userService;
-    private NotificationRealmRepository notificationRepository;
     private List<NotificationDto> notifications;
 
     @Inject
-    public NotificationListPresenter(NotificationListContract.View view, UserService userService, NotificationRealmRepository notificationRepository) {
+    public NotificationListPresenter(NotificationListContract.View view, UserService userService) {
         super(view, userService);
         this.userService = userService;
-        this.notificationRepository = notificationRepository;
     }
 
     @Override
     public void onResume() {
         setPostAdapter();
-        notificationRepository.getAll()
-                .subscribe(notificationList -> {
-                    notifications = notificationList;
-                    uiUpdate();
-                });
+        uiUpdate();
         super.onResume();
     }
 
@@ -62,6 +54,5 @@ public class NotificationListPresenter extends InnerPresenter<NotificationListCo
     @Override
     public void deleteNotification(int position) {
         NotificationDto notification = notifications.get(position);
-        notificationRepository.removeAsync(notification, null);
     }
 }
