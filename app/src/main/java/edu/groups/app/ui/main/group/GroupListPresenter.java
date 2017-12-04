@@ -5,6 +5,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -89,7 +90,11 @@ public class GroupListPresenter extends InnerPresenter<GroupListContract.View>
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        group -> view.openGroupActivity(group.getId()),
+                        group -> {
+                            addToRealm(Collections.singletonList(group));
+                            subscribeTopic(group);
+                            view.openGroupActivity(group.getId());
+                        },
                         onError()
                 );
         disposable.add(subscribe);
@@ -102,7 +107,11 @@ public class GroupListPresenter extends InnerPresenter<GroupListContract.View>
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        group -> view.openGroupActivity(group.getId()),
+                        group -> {
+                            addToRealm(Collections.singletonList(group));
+                            subscribeTopic(group);
+                            view.openGroupActivity(group.getId());
+                        },
                         onError()
                 );
         disposable.add(subscribe);
