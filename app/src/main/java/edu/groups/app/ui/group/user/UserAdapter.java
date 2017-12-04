@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.groups.app.R;
-import edu.groups.app.api.ApiService;
+import edu.groups.app.api.GroupService;
 import edu.groups.app.model.SimpleUser;
 import edu.groups.app.model.User;
 import java8.util.Optional;
@@ -23,7 +23,7 @@ import static java8.util.stream.StreamSupport.stream;
 
 public class UserAdapter extends RecyclerView.Adapter<UserViewHolder> {
     private List<SimpleUser> users;
-    private ApiService apiService;
+    private GroupService groupService;
     private final User currentUser;
     private final Long groupId;
 
@@ -31,9 +31,9 @@ public class UserAdapter extends RecyclerView.Adapter<UserViewHolder> {
         void onRemove(String username);
     }
 
-    public UserAdapter(List<SimpleUser> users, ApiService onUserRemove, User currentUser, Long groupId) {
+    public UserAdapter(List<SimpleUser> users, GroupService groupService, User currentUser, Long groupId) {
         this.users = ofNullable(users).orElseGet(ArrayList::new);
-        this.apiService = onUserRemove;
+        this.groupService = groupService;
         this.currentUser = currentUser;
         this.groupId = groupId;
     }
@@ -48,7 +48,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserViewHolder> {
     public UserViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.user_row, parent, false);
-        return new UserViewHolder(view, currentUser, apiService, groupId);
+        return new UserViewHolder(view, currentUser, groupId, groupService);
     }
 
     @Override

@@ -28,15 +28,17 @@ public class GroupPresenter extends InnerPresenter<GroupFragmentContract.View> i
     private List<Post> posts;
     private GroupService groupService;
     private PostService postService;
+    private GroupContract.View groupView;
     private GroupDto group;
     private long groupId;
 
     @Inject
     protected GroupPresenter(GroupFragmentContract.View view, UserService userService, GroupService groupService,
-                             PostService postService) {
+                             PostService postService, GroupContract.View groupView) {
         super(view, userService);
         this.groupService = groupService;
         this.postService = postService;
+        this.groupView = groupView;
     }
 
     @Override
@@ -135,6 +137,40 @@ public class GroupPresenter extends InnerPresenter<GroupFragmentContract.View> i
     @Override
     public List<String> getGroupMembers() {
         return group.getMembersUserNames();
+    }
+
+    @Override
+    public void leaveGroupClick() {
+        view.showLeaveGroupDialog();
+    }
+
+    @Override
+    public void joinCodeClick() {
+        disposable.add(groupService.getJoinCode(groupId)
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(view::showJoinCodeDialog, throwable -> view.showError(throwable.getMessage())));
+    }
+
+    @Override
+    public List<String> currentUserRole() {
+        return getCurrentUser().getRoles();
+    }
+
+    @Override
+    public void leaveGroup() {
+        disposable.add(groupService.leaveGroup(groupId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(groupView::finish, throwable -> view.showError(throwable.getMessage())));
+    }
+
+    @Override
+    public void resetCode() {
+        disposable.add(groupService.resetJoinCode(groupId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(view::showJoinCodeDialog, throwable -> view.showError(throwable.getMessage())));
     }
 
     @Override

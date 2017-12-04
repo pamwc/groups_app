@@ -12,5 +12,7 @@ public interface GroupContract extends MvpContract {
 
     interface View {
         void openGroupMembers(Bundle bundle);
+
+        void finish();
     }
 }

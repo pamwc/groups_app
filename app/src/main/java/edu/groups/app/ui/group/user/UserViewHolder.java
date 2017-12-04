@@ -16,8 +16,8 @@ import com.bumptech.glide.load.model.LazyHeaders;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.groups.app.R;
-import edu.groups.app.api.ApiService;
 import edu.groups.app.api.BasicAuthInterceptor;
+import edu.groups.app.api.GroupService;
 import edu.groups.app.di.module.NetModule;
 import edu.groups.app.model.SimpleUser;
 import edu.groups.app.model.User;
@@ -33,7 +33,7 @@ import io.reactivex.schedulers.Schedulers;
 public class UserViewHolder extends RecyclerView.ViewHolder {
     private final User currentUser;
     private final boolean removeButtonEnabled;
-    private final ApiService apiService;
+    private final GroupService groupService;
     private final Long groupId;
 
     public interface SuccessRemoveAction {
@@ -55,10 +55,10 @@ public class UserViewHolder extends RecyclerView.ViewHolder {
 
     private Context context;
 
-    public UserViewHolder(View itemView, User currentUser, ApiService apiService, Long groupId) {
+    public UserViewHolder(View itemView, User currentUser, Long groupId, GroupService groupService) {
         super(itemView);
         ButterKnife.bind(this, itemView);
-        this.apiService = apiService;
+        this.groupService = groupService;
         this.groupId = groupId;
         this.context = itemView.getContext();
         this.currentUser = currentUser;
@@ -86,7 +86,7 @@ public class UserViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void onRemoveClick(SimpleUser simpleUser, SuccessRemoveAction removeAction) {
-        apiService.removeUserFromGroup(groupId, simpleUser.getUsername())
+        groupService.removeUserFromGroup(groupId, simpleUser.getUsername())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(() -> removeAction.removeUser(simpleUser), onRemoveError());

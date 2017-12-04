@@ -3,8 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="edu.groups.app.ui.group.GroupFragment"
-    android:orientation="vertical">
-    //tools:showIn="@layout/activity_group">
+    android:orientation="vertical"
+    tools:showIn="@layout/activity_group">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -63,7 +63,6 @@
             android:drawableRight="@android:drawable/ic_menu_view"
             android:text="@string/show_members"
             android:textColor="@android:color/white" />
-
     </RelativeLayout>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/post_list"
@@ -72,4 +71,16 @@
         android:layout_height="wrap_content">
 
     </android.support.v7.widget.RecyclerView>
+
+    <Button
+        android:id="@+id/leaveGroup"
+        android:text="@string/leave_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/joinCode"
+        android:text="@string/show_join_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </LinearLayout>

@@ -20,6 +20,12 @@ public interface GroupFragmentContract {
         void setAdapter(PostAdapter adapter);
         void notifyAdapterPostAdded();
         void notifyAdapterPostDeleted(int position);
+
+        void showError(String message);
+
+        void showJoinCodeDialog(String code);
+
+        void showLeaveGroupDialog();
     }
 
     interface Presenter extends MvpContract.Presenter {
@@ -33,5 +39,15 @@ public interface GroupFragmentContract {
 
         List<String> getGroupAdmins();
         List<String> getGroupMembers();
+
+        void leaveGroupClick();
+
+        void joinCodeClick();
+
+        void resetCode();
+
+        List<String> currentUserRole();
+
+        void leaveGroup();
     }
 }
