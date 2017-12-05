@@ -1,12 +1,14 @@
 package edu.groups.app.ui.group;
 
+import android.content.Context;
+
 import java.util.List;
 
 import edu.groups.app.model.User;
+import edu.groups.app.model.group.Comment;
 import edu.groups.app.model.group.Post;
 import edu.groups.app.model.post.NewPostDto;
 import edu.groups.app.ui.MvpContract;
-import edu.groups.app.ui.group.post.Comment;
 import edu.groups.app.ui.group.post.PostAdapter;
 
 /**
@@ -27,6 +29,10 @@ public interface GroupFragmentContract {
         void showJoinCodeDialog(String code);
 
         void showLeaveGroupDialog();
+
+        void openCommentDialog(Long id);
+
+        Context getContext();
     }
 
     interface Presenter extends MvpContract.Presenter {
@@ -34,7 +40,6 @@ public interface GroupFragmentContract {
         void addPost(NewPostDto newPostDto);
 
         void deletePost(int postId);
-        void commentPost(int postId, Comment comment);
         int getPostCount();
         void setGroupId(long groupId);
         Post getPost(int position);
@@ -51,5 +56,19 @@ public interface GroupFragmentContract {
         List<String> currentUserRole();
 
         void leaveGroup();
+
+        void commentPost(int position);
+
+        void addComment(Long postId, String content);
+
+        Context getContext();
     }
+
+    interface CommentPresenter {
+
+        Comment getComment(int position);
+
+        int getCommentCount();
+    }
+
 }

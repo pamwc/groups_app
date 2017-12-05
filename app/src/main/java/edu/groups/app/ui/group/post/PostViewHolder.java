@@ -1,5 +1,6 @@
 package edu.groups.app.ui.group.post;
 
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
@@ -39,6 +40,7 @@ public class PostViewHolder extends RecyclerView.ViewHolder implements PostContr
     public PostViewHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
+        commentList.setNestedScrollingEnabled(false);
     }
 
     @Override
@@ -80,5 +82,13 @@ public class PostViewHolder extends RecyclerView.ViewHolder implements PostContr
     @Override
     public void showDeleteButton() {
         deleteButton.setVisibility(View.VISIBLE);
+    }
+
+    public void setCommentListAdapter(RecyclerView.Adapter adapter) {
+        commentList.setAdapter(adapter);
+    }
+
+    public void setCommentListLayoutManager(RecyclerView.LayoutManager listLayoutManager) {
+        commentList.setLayoutManager(listLayoutManager);
     }
 }

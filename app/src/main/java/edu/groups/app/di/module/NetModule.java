@@ -11,6 +11,7 @@ import dagger.Module;
 import dagger.Provides;
 import edu.groups.app.api.ApiService;
 import edu.groups.app.api.BasicAuthInterceptor;
+import edu.groups.app.api.CommentService;
 import edu.groups.app.api.GroupService;
 import edu.groups.app.api.NetworkAvailableInterceptor;
 import edu.groups.app.api.NotificationsService;
@@ -96,5 +97,11 @@ public abstract class NetModule {
     @Singleton
     static NotificationsService provideNotificationsService(Retrofit retrofit) {
         return retrofit.create(NotificationsService.class);
+    }
+
+    @Provides
+    @Singleton
+    static CommentService provideCommentService(Retrofit retrofit) {
+        return retrofit.create(CommentService.class);
     }
 }

@@ -1,5 +1,6 @@
 package edu.groups.app.ui.group.post;
 
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,8 +11,10 @@ import javax.inject.Inject;
 import edu.groups.app.R;
 import edu.groups.app.model.User;
 import edu.groups.app.model.UserRole;
+import edu.groups.app.model.group.Comment;
 import edu.groups.app.model.group.Post;
 import edu.groups.app.ui.group.GroupFragmentContract;
+import edu.groups.app.ui.group.comment.CommentAdapter;
 
 /**
  * Created by howor on 18.11.2017.
@@ -44,13 +47,35 @@ public class PostAdapter extends RecyclerView.Adapter<PostViewHolder> {
         holder.setCreationDate(post.getCreationTime());
         holder.setContent(post.getContent());
         holder.setCommentsEnabled(post.getCommentEnabled());
-        holder.setOnCommentButtonClick(v -> groupPresenter.commentPost(position, new Comment()));
+        holder.setOnCommentButtonClick(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                groupPresenter.commentPost(position);
+            }
+        });
         if (currentUser.hasRole(UserRole.ADMIN)) {
             holder.showDeleteButton();
             holder.setOnDeleteButtonClick(v ->
                     groupPresenter.deletePost(position)
             );
         }
+        holder.setCommentListAdapter(new CommentAdapter(getCommentPresenter(post)));
+        holder.setCommentListLayoutManager(new LinearLayoutManager(groupPresenter.getContext()));
+
+    }
+
+    private GroupFragmentContract.CommentPresenter getCommentPresenter(Post post) {
+        return new GroupFragmentContract.CommentPresenter() {
+            @Override
+            public Comment getComment(int position) {
+                return post.getComments().get(position);
+            }
+
+            @Override
+            public int getCommentCount() {
+                return post.getComments().size();
+            }
+        };
     }
 
     @Override

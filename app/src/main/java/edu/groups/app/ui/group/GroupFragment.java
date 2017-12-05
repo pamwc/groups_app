@@ -21,6 +21,7 @@ import edu.groups.app.R;
 import edu.groups.app.model.UserRole;
 import edu.groups.app.model.post.NewPostDto;
 import edu.groups.app.ui.BaseViewFragment;
+import edu.groups.app.ui.group.comment.AddCommentDialog;
 import edu.groups.app.ui.group.post.AddPostDialog;
 import edu.groups.app.ui.group.post.PostAdapter;
 import edu.groups.app.ui.group.user.UserFragment;
@@ -161,6 +162,18 @@ public class GroupFragment extends BaseViewFragment<GroupFragmentContract.Presen
                 .setCancelable(true)
                 .create()
                 .show();
+    }
+
+    @Override
+    public void openCommentDialog(Long postId) {
+        AddCommentDialog addCommentDialog = new AddCommentDialog(getActivity());
+        addCommentDialog.setOnResultListener(new AddCommentDialog.OnResultListener() {
+            @Override
+            public void result(String commentContent) {
+                presenter.addComment(postId, commentContent);
+            }
+        });
+        addCommentDialog.show();
     }
 
     @Override

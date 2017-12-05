@@ -1,5 +1,6 @@
 package edu.groups.app.ui.group;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 
 import java.util.List;
@@ -7,6 +8,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import edu.groups.app.api.BasicAuthInterceptor;
+import edu.groups.app.api.CommentService;
 import edu.groups.app.api.GroupService;
 import edu.groups.app.api.PostService;
 import edu.groups.app.model.BasicCredentials;
@@ -17,7 +19,6 @@ import edu.groups.app.model.post.NewPostDto;
 import edu.groups.app.repository.UserRealmRepository;
 import edu.groups.app.service.UserService;
 import edu.groups.app.ui.InnerPresenter;
-import edu.groups.app.ui.group.post.Comment;
 import edu.groups.app.ui.group.post.PostAdapter;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -37,16 +38,19 @@ public class GroupPresenter extends InnerPresenter<GroupFragmentContract.View> i
     private long groupId;
     private UserRealmRepository userRealmRepository;
     private final BasicAuthInterceptor authInterceptor;
+    private CommentService commentService;
 
     @Inject
     protected GroupPresenter(GroupFragmentContract.View view, UserService userService, GroupService groupService,
-                             PostService postService, GroupContract.View groupView, UserRealmRepository userRealmRepository, BasicAuthInterceptor authInterceptor) {
+                             PostService postService, GroupContract.View groupView, UserRealmRepository userRealmRepository, BasicAuthInterceptor authInterceptor,
+                             CommentService commentService) {
         super(view, userService);
         this.groupService = groupService;
         this.postService = postService;
         this.groupView = groupView;
         this.userRealmRepository = userRealmRepository;
         this.authInterceptor = authInterceptor;
+        this.commentService = commentService;
     }
 
     @Override
@@ -109,12 +113,13 @@ public class GroupPresenter extends InnerPresenter<GroupFragmentContract.View> i
 
     @Override
     public void addPost(NewPostDto newPostDto) {
-        postService.createNewPost(groupId, newPostDto).subscribeOn(Schedulers.io())
+        Disposable addPostdisposable = postService.createNewPost(groupId, newPostDto).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(postId ->{
-                    disposable.add(getPostsFromApi());
+                .subscribe(postId -> {
+                    this.disposable.add(getPostsFromApi());
                     view.notifyAdapterPostAdded();
                 });
+        disposable.add(addPostdisposable);
 
     }
 
@@ -127,17 +132,14 @@ public class GroupPresenter extends InnerPresenter<GroupFragmentContract.View> i
     public void deletePost(int postPosition) {
         Post post = posts.get(postPosition);
         Long postId = post.getId();
-        postService.removePost(postId).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread()).doOnComplete(()->{
-            posts.remove(postPosition);
-            view.notifyAdapterPostDeleted(postPosition);
-        }).subscribe();
+        Disposable subscribeDisposable = postService.removePost(postId).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).doOnComplete(() -> {
+                    posts.remove(postPosition);
+                    view.notifyAdapterPostDeleted(postPosition);
+                }).subscribe();
+        disposable.add(subscribeDisposable);
     }
 
-    @Override
-    public void commentPost(int postId, Comment comment) {
-        //MAYBE TO DO
-    }
 
     @Override
     public int getPostCount() {
@@ -178,6 +180,29 @@ public class GroupPresenter extends InnerPresenter<GroupFragmentContract.View> i
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(groupView::finish, throwable -> view.showError(throwable.getMessage())));
+    }
+
+    @Override
+    public void commentPost(int position) {
+        Post post = posts.get(position);
+        view.openCommentDialog(post.getId());
+
+    }
+
+    @Override
+    public void addComment(Long postId, String content) {
+        Disposable commentDisposable = commentService.createNewComment(postId, content).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(p -> {
+                    this.disposable.add(getPostsFromApi());
+                    view.notifyAdapterPostAdded();
+                });
+        disposable.add(commentDisposable);
+    }
+
+    @Override
+    public Context getContext() {
+        return view.getContext();
     }
 
     @Override
