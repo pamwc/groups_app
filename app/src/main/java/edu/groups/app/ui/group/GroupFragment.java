@@ -33,7 +33,7 @@ import static android.view.View.VISIBLE;
 public class GroupFragment extends BaseViewFragment<GroupFragmentContract.Presenter> implements GroupFragmentContract.View {
 
     public static final String GROUP_ID = "GROUP_ID";
-    public static final long NO_GROUP_ID = 0L;
+    public static final long NO_GROUP_ID = -11L;
 
     @BindView(R.id.group_admin_label)
     TextView adminLabel;

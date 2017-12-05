@@ -15,11 +15,14 @@ public interface NotificationListContract {
     interface View extends MvpContract.View {
         void setAdapter(RecyclerView.Adapter adapter);
         void notifyDataSetChanged();
+
+        void startActivity(Integer groupId, Integer postId, Integer commentId);
     }
 
     interface Presenter extends MvpContract.Presenter {
         int getNotificationCount();
         NotificationDto getNotification(int position);
+        void handleClick(int position);
     }
 
 }

@@ -66,4 +66,10 @@ public class NotificationListPresenter extends InnerPresenter<NotificationListCo
     public NotificationDto getNotification(int position) {
         return notifications.get(position);
     }
+
+    @Override
+    public void handleClick(int position) {
+        NotificationDto notification = notifications.get(position);
+        view.startActivity(notification.getGroupId(), notification.getPostId(), notification.getCommentId());
+    }
 }

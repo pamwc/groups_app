@@ -14,6 +14,8 @@ import edu.groups.app.R;
 
 public class NotificationViewHolder extends RecyclerView.ViewHolder {
 
+    private View rowView;
+
     @BindView(R.id.comment_title)
     TextView commentTitle;
 
@@ -22,6 +24,7 @@ public class NotificationViewHolder extends RecyclerView.ViewHolder {
 
     public NotificationViewHolder(View itemView) {
         super(itemView);
+        this.rowView = itemView;
         ButterKnife.bind(this, itemView);
     }
 
@@ -31,5 +34,9 @@ public class NotificationViewHolder extends RecyclerView.ViewHolder {
 
     public void setCommentContent(String content) {
         commentContent.setText(content);
+    }
+
+    public void setOnClickListener(View.OnClickListener listener) {
+        rowView.setOnClickListener(listener);
     }
 }
