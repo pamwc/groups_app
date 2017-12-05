@@ -13,6 +13,7 @@ import edu.groups.app.api.ApiService;
 import edu.groups.app.api.BasicAuthInterceptor;
 import edu.groups.app.api.GroupService;
 import edu.groups.app.api.NetworkAvailableInterceptor;
+import edu.groups.app.api.NotificationsService;
 import edu.groups.app.api.PostService;
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
@@ -89,5 +90,11 @@ public abstract class NetModule {
     @Singleton
     static PostService providePostService(Retrofit retrofit) {
         return retrofit.create(PostService.class);
+    }
+
+    @Provides
+    @Singleton
+    static NotificationsService provideNotificationsService(Retrofit retrofit) {
+        return retrofit.create(NotificationsService.class);
     }
 }

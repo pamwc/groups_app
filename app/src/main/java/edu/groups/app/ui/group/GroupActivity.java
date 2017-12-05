@@ -1,5 +1,6 @@
 package edu.groups.app.ui.group;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import edu.groups.app.R;
@@ -17,7 +18,9 @@ public class GroupActivity extends HostActivity implements GroupContract.View {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group);
 
-        long groupId = getIntent().getLongExtra(GROUP_ID, GroupFragment.NO_GROUP_ID);
+        Intent intent = getIntent();
+        long groupId = intent.getLongExtra(GROUP_ID, GroupFragment.NO_GROUP_ID);
+        groupId = intent.getLongExtra(GROUP_ID, GroupFragment.NO_GROUP_ID);
         if (savedInstanceState == null) {
             replaceFragment(R.id.container, GroupFragment.newInstance(groupId, this));
         }
