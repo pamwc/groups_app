@@ -40,7 +40,6 @@ public class PostViewHolder extends RecyclerView.ViewHolder implements PostContr
     public PostViewHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
-        commentList.setNestedScrollingEnabled(false);
     }
 
     @Override

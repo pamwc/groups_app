@@ -60,7 +60,17 @@ public class PostAdapter extends RecyclerView.Adapter<PostViewHolder> {
             );
         }
         holder.setCommentListAdapter(new CommentAdapter(getCommentPresenter(post)));
-        holder.setCommentListLayoutManager(new LinearLayoutManager(groupPresenter.getContext()));
+        holder.setCommentListLayoutManager(new LinearLayoutManager(groupPresenter.getContext()){
+            @Override
+            public boolean canScrollHorizontally() {
+                return false;
+            }
+
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        });
 
     }
 
